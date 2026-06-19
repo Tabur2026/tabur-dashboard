@@ -312,6 +312,7 @@ const reportSections = {
   "/apps-details": "957703b4c99da1359cdf",
   "/workforce-productivity": "41adb7b772af79309837",
   "/google-rating": "17eb8cc1e4276dc5a1e4",
+  "/operations-complaints" : "fc185d48dcafe56011c9",
   "/quality": "af65b321dcbe2c7b97b4",
   "/quality-score": "60cfe719a0a02a551b5b",
   "/quality-notes": "0b634162624cb758127d",
