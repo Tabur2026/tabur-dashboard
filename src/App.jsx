@@ -189,7 +189,7 @@ const menuGroups = [
     icon: <Handshake size={20} />,
     pages: [
       { title: "لوحة الامتياز", path: "/franchise", icon: <Handshake size={16} /> },
-      { title: "التزام المانح والممنوح", path: "/franchise-compliance", icon: <ClipboardCheck size={16} /> },
+      { title: "سجل الممنوحين", path: "/franchise-compliance", icon: <ClipboardCheck size={16} /> },
       { title: "فواتير المنح التجاري", path: "/franchise-payments", icon: <Receipt size={16} /> },
     ],
   },
@@ -322,7 +322,7 @@ const reportSections = {
   "/hr-compliance": "0a59daa9acfe550f378b",
   "/marketing": "52aadd0237e569b006aa",
   "/franchise": "0cd007a5f80637a22be2",
-  "/franchise-compliance": "72cadbd346f7733d0c04",
+  "/franchise-compliance": "110577a68d5b4ded0c6a",
   "/franchise-payments": "7858c1fe7d2c37adb721",
   "/lab": "a9e228f6ed216e03cb4d",
 };
