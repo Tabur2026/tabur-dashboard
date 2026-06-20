@@ -322,7 +322,7 @@ const reportSections = {
   "/hr-compliance": "0a59daa9acfe550f378b",
   "/marketing": "52aadd0237e569b006aa",
   "/franchise": "0cd007a5f80637a22be2",
-  "/franchise-compliance": "110577a68d5b4ded0c6a",
+  "/franchise-compliance": "93f9ca943d246723deb2",
   "/franchise-payments": "7858c1fe7d2c37adb721",
   "/lab": "a9e228f6ed216e03cb4d",
 };
