@@ -84,10 +84,6 @@ const pageTitles = {
     title: "تقييم جودة الفروع",
     subtitle: "متابعة نتائج الزيارات وتقييم أداء الفروع",
   },
-  "/quality-notes": {
-    title: "تحليل ملاحظات الجودة",
-    subtitle: "تحليل الملاحظات وحالة الإغلاق ونسب المعالجة",
-  },
   "/customer-complaints": {
     title: "شكاوى العملاء",
     subtitle: "متابعة شكاوى العملاء وتحليل أسبابها ومؤشرات الأداء",
@@ -168,7 +164,6 @@ const menuGroups = [
     pages: [
       { title: "لوحة الجودة", path: "/quality", icon: <Star size={16} /> },
       { title: "تقييم جودة الفروع", path: "/quality-score", icon: <ClipboardCheck size={16} /> },
-      { title: "تحليل ملاحظات الجودة", path: "/quality-notes", icon: <FileSearch size={16} /> },
       { title: "شكاوى العملاء", path: "/customer-complaints", icon: <MessageSquareWarning size={16} /> },
     ],
   },
@@ -315,7 +310,6 @@ const reportSections = {
   "/operations-complaints" : "fc185d48dcafe56011c9",
   "/quality": "af65b321dcbe2c7b97b4",
   "/quality-score": "60cfe719a0a02a551b5b",
-  "/quality-notes": "0b634162624cb758127d",
   "/customer-complaints": "fc185d48dcafe56011c9",
   "/hr": "2166af69dc744c28aa25",
   "/hr-workforce": "c0864ba9da2756782168",
