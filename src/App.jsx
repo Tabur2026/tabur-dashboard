@@ -25,7 +25,7 @@ import {
   MessageSquareWarning,
   ShieldCheck,
   FileText,
-  Receipt, Users, CalendarCheck, Presentation 
+  Receipt, Users, CalendarCheck, Presentation ,task
 } from "lucide-react";
 
 const pageTitles = {
@@ -138,8 +138,9 @@ const menuGroups = [
   {
     title: "الرئيسية",
     icon: <Home size={20} />,
-    path: "/dashboard",
-    pages: { title: "مؤشرات الاجتماعات الدورية", path: "/meeting", icon: <Users size={16} /> },
+     pages: [
+      { title: "لوحة مهام الفريق الإداري", path: "/dashboard", icon: <task size={16} /> },
+    { title: "مؤشرات الاجتماعات الدورية", path: "/meeting", icon: <Users size={16} /> }   ]
   },
 
   {
