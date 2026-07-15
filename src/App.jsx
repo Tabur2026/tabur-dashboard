@@ -25,13 +25,17 @@ import {
   MessageSquareWarning,
   ShieldCheck,
   FileText,
-  Receipt,
+  Receipt, Users, CalendarCheck, Presentation 
 } from "lucide-react";
 
 const pageTitles = {
   "/dashboard": {
     title: "اللوحة التنفيذية",
     subtitle: "نظرة شاملة على مؤشرات الأداء الرئيسية",
+  },
+  "/meeting": {
+    title: "متابعة الاجتماعات الدورية ",
+    subtitle: "نلوحة مؤشرات التزام الفريق الاداري بالية الاجتماعات الدوية ",
   },
   "/finance": {
     title: "لوحة معلومات الإدارة المالية",
@@ -135,7 +139,7 @@ const menuGroups = [
     title: "الرئيسية",
     icon: <Home size={20} />,
     path: "/dashboard",
-    pages: [],
+    pages: { title: "مؤشرات الاجتماعات الدورية", path: "/meeting", icon: <Users size={16} /> },
   },
 
   {
@@ -213,7 +217,7 @@ const menuGroups = [
 ];
 const userPermissions = {
   "coordinated@tabur.sa": [
-      "/dashboard",
+      "/dashboard", "/meeting", 
 
   "/finance",
   "/finance-kpis",
@@ -242,7 +246,7 @@ const userPermissions = {
   "/lab-details",
   ],
   "abdullah@tabur.sa": [
-      "/dashboard",
+      "/dashboard", "/meeting", 
 
   "/finance",
   "/finance-kpis",
@@ -271,21 +275,21 @@ const userPermissions = {
   "/lab-details",
   ],
   "finance@tabur.sa": [
-     "/dashboard",
+    "/dashboard", "/meeting", 
     "/finance",
     "/finance-kpis",
     "/finance-cash",
     "/rent-contracts",
   ],
   "quality@tabur.sa": [
-     "/dashboard",
+     "/dashboard", "/meeting", 
     "/quality",
     "/quality-score",
     "/quality-notes",
     "/customer-complaints",
   ],
   "khaled@tabur.sa": [
-     "/dashboard",
+     "/dashboard", "/meeting", 
     "/operations",
     "/orders-details",
     "/apps-details",
@@ -294,7 +298,7 @@ const userPermissions = {
     "/operations-complaints",
   ],
   "hr@tabur.sa": [
-     "/dashboard",
+    "/dashboard", "/meeting", 
     "/hr",
     "/hr-workforce",
     "/hr-compliance",
@@ -302,7 +306,7 @@ const userPermissions = {
   ],
   "marketing@tabur.sa": [ "/dashboard","/marketing"],
   "franchise@tabur.sa": [
-     "/dashboard",
+     "/dashboard", "/meeting", 
     "/franchise",
     "/franchise-compliance",
     "/franchise-payments",
@@ -311,6 +315,7 @@ const userPermissions = {
 
 const reportSections = {
   "/dashboard": "4e5c3fa6c4754ee7def8",
+  "/meeting" : "aeafd3221d78f0bb37eb", 
   "/finance": "c38620a696b6fc62d0f5",
   "/finance-kpis": "744ea543b00dc4c146f7",
   "/finance-cash": "9ad4e769c14a39ca268e",
