@@ -5,7 +5,7 @@ import { loginRequest } from "./authConfig";
 import "./App.css";
 
 import {
-  Home,
+     Home,
   Wallet,
   Settings,
   Star,
@@ -25,7 +25,9 @@ import {
   MessageSquareWarning,
   ShieldCheck,
   FileText,
-  Receipt, Users, CalendarCheck, Presentation ,task
+  Receipt,
+  CalendarCheck,
+  ListTodo,
 } from "lucide-react";
 
 const pageTitles = {
@@ -139,7 +141,7 @@ const menuGroups = [
     title: "الرئيسية",
     icon: <Home size={20} />,
      pages: [
-      { title: "لوحة مهام الفريق الإداري", path: "/dashboard", icon: <task size={16} /> },
+      { title: "لوحة مهام الفريق الإداري", path: "/dashboard", icon: <ListTodo size={16} /> },
     { title: "مؤشرات الاجتماعات الدورية", path: "/meeting", icon: <Users size={16} /> }   ]
   },
 
