@@ -402,9 +402,8 @@ function PortalLayout({ pagePath }) {
 
         <nav className="sidebar-menu">
           {allowedMenuGroups.map((group) => {
-            const isOpen =
-              openGroup === group.title ||
-              group.pages.some((page) => page.path === pagePath);
+                       const isOpen = openGroup === group.title;
+
 
             return (
               <div
