@@ -5,7 +5,7 @@ import { loginRequest } from "./authConfig";
 import "./App.css";
 
 import {
-     Home,
+  Home,
   Wallet,
   Settings,
   Star,
@@ -78,7 +78,7 @@ const pageTitles = {
     title: "تقييمات جوجل ماب",
     subtitle: "متابعة تقييمات العملاء على Google Maps وتحليل رضا العملاء حسب الفروع",
   },
-   "/operations-complaints": {
+  "/operations-complaints": {
     title: "شكاوى العملاء",
     subtitle: "متابعة شكاوى العملاء وتحليل أسبابها ومؤشرات الأداء",
   },
@@ -106,7 +106,7 @@ const pageTitles = {
     title: "الامتثال الحكومي",
     subtitle: "متابعة حالة الإقامات ورخص العمل والتنبيهات الحكومية الخاصة بالموظفين",
   },
-    "/rents-contracts": {
+  "/rents-contracts": {
     title: "العقود الإيجارية",
     subtitle: "تحليل ومتابعة الالتزام بسداد المستحقات الإيجارية وحالة العقود",
   },
@@ -130,7 +130,7 @@ const pageTitles = {
     title: "لوحة معلومات المعمل المركزي",
     subtitle: "عرض شامل لمبيعات الفروع والأصناف وتحليل الأداء لدعم اتخاذ القرار",
   },
-    "/lab-details": {
+  "/lab-details": {
     title: "اللوحة التفصيلية لمبيعات المعمل المركزي",
     subtitle: "عرض تفصيلي لمبيعات الفروع والأصناف وتحليل الأداء لدعم اتخاذ القرار",
   },
@@ -140,9 +140,10 @@ const menuGroups = [
   {
     title: "الرئيسية",
     icon: <Home size={20} />,
-     pages: [
+    pages: [
       { title: "لوحة مهام الفريق الإداري", path: "/dashboard", icon: <ListTodo size={16} /> },
-    { title: "مؤشرات الاجتماعات الدورية", path: "/meeting", icon: <Users size={16} /> }   ]
+      { title: "مؤشرات الاجتماعات الدورية", path: "/meeting", icon: <CalendarCheck size={16} /> },
+    ],
   },
 
   {
@@ -214,111 +215,56 @@ const menuGroups = [
     pages: [
       { title: "المعمل المركزي", path: "/lab", icon: <FlaskConical size={16} /> },
       { title: "تفاصيل مبيعات المعمل", path: "/lab-details", icon: <FlaskConical size={16} /> },
-
     ],
   },
 ];
+
 const userPermissions = {
   "coordinated@tabur.sa": [
-      "/dashboard", "/meeting", 
-
-  "/finance",
-  "/finance-kpis",
-  "/finance-cash",
-  "/rent-contracts",
-  "/operations",
-  "/orders-details",
-  "/apps-details",
-  "/workforce-productivity",
-  "/google-rating",
-  "/quality",
-  "/quality-score",
-  "/quality-notes",
-  "/operations-complaints",
-  "/hr",
-  "/hr-workforce",
-  "/hr-compliance",
-
-  "/marketing",
-
-  "/franchise",
-  "/franchise-compliance",
-  "/franchise-payments",
-
-  "/lab",
-  "/lab-details",
+    "/dashboard", "/meeting",
+    "/finance", "/finance-kpis", "/finance-cash", "/rent-contracts",
+    "/operations", "/orders-details", "/apps-details", "/workforce-productivity",
+    "/google-rating", "/quality", "/quality-score", "/quality-notes",
+    "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
+    "/marketing", "/franchise", "/franchise-compliance", "/franchise-payments",
+    "/lab", "/lab-details",
   ],
   "abdullah@tabur.sa": [
-      "/dashboard", "/meeting", 
-
-  "/finance",
-  "/finance-kpis",
-  "/finance-cash",
-  "/rent-contracts",
-  "/operations",
-  "/orders-details",
-  "/apps-details",
-  "/workforce-productivity",
-  "/google-rating",
-  "/quality",
-  "/quality-score",
-  "/quality-notes",
-  "/operations-complaints",
-  "/hr",
-  "/hr-workforce",
-  "/hr-compliance",
-
-  "/marketing",
-
-  "/franchise",
-  "/franchise-compliance",
-  "/franchise-payments",
-
-  "/lab",
-  "/lab-details",
+    "/dashboard", "/meeting",
+    "/finance", "/finance-kpis", "/finance-cash", "/rent-contracts",
+    "/operations", "/orders-details", "/apps-details", "/workforce-productivity",
+    "/google-rating", "/quality", "/quality-score", "/quality-notes",
+    "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
+    "/marketing", "/franchise", "/franchise-compliance", "/franchise-payments",
+    "/lab", "/lab-details",
   ],
   "finance@tabur.sa": [
-    "/dashboard", "/meeting", 
-    "/finance",
-    "/finance-kpis",
-    "/finance-cash",
-    "/rent-contracts",
+    "/dashboard", "/meeting",
+    "/finance", "/finance-kpis", "/finance-cash", "/rent-contracts",
   ],
   "quality@tabur.sa": [
-     "/dashboard", "/meeting", 
-    "/quality",
-    "/quality-score",
-    "/quality-notes",
-    "/customer-complaints",
+    "/dashboard", "/meeting",
+    "/quality", "/quality-score", "/quality-notes", "/customer-complaints",
   ],
   "khaled@tabur.sa": [
-     "/dashboard", "/meeting", 
-    "/operations",
-    "/orders-details",
-    "/apps-details",
-    "/workforce-productivity",
-    "/google-rating",
-    "/operations-complaints",
+    "/dashboard", "/meeting",
+    "/operations", "/orders-details", "/apps-details",
+    "/workforce-productivity", "/google-rating", "/operations-complaints",
   ],
   "hr@tabur.sa": [
-    "/dashboard", "/meeting", 
-    "/hr",
-    "/hr-workforce",
-    "/hr-compliance",
-    "/rents-contracts",
+    "/dashboard", "/meeting",
+    "/hr", "/hr-workforce", "/hr-compliance", "/rents-contracts",
   ],
-  "marketing@tabur.sa": [ "/dashboard","/marketing"],
+  "marketing@tabur.sa": ["/dashboard", "/marketing"],
   "franchise@tabur.sa": [
-     "/dashboard", "/meeting", 
-    "/franchise",
-    "/franchise-compliance",
-    "/franchise-payments",
+    "/dashboard", "/meeting",
+    "/franchise", "/franchise-compliance", "/franchise-payments",
   ],
 };
 
 const reportSections = {
   "/dashboard": "4e5c3fa6c4754ee7def8",
-  "/meeting" : "aeafd3221d78f0bb37eb", 
+  "/meeting": "aeafd3221d78f0bb37eb",
   "/finance": "c38620a696b6fc62d0f5",
   "/finance-kpis": "744ea543b00dc4c146f7",
   "/finance-cash": "9ad4e769c14a39ca268e",
@@ -328,7 +274,7 @@ const reportSections = {
   "/apps-details": "957703b4c99da1359cdf",
   "/workforce-productivity": "41adb7b772af79309837",
   "/google-rating": "17eb8cc1e4276dc5a1e4",
-  "/operations-complaints" : "fc185d48dcafe56011c9",
+  "/operations-complaints": "fc185d48dcafe56011c9",
   "/quality": "af65b321dcbe2c7b97b4",
   "/quality-score": "60cfe719a0a02a551b5b",
   "/customer-complaints": "fc185d48dcafe56011c9",
@@ -429,11 +375,11 @@ function PortalLayout({ pagePath }) {
   }
 
   const allowedMenuGroups = menuGroups
-  .map((group) => ({
-    ...group,
-    pages: group.pages?.filter((page) => allowedPages.includes(page.path)) || [],
-  }))
-  .filter((group) => allowedPages.includes(group.path) || group.pages.length > 0);
+    .map((group) => ({
+      ...group,
+      pages: group.pages?.filter((page) => allowedPages.includes(page.path)) || [],
+    }))
+    .filter((group) => group.pages.length > 0);
 
   const currentPage = pageTitles[pagePath] || pageTitles["/dashboard"];
   const sectionId = reportSections[pagePath] || reportSections["/dashboard"];
@@ -459,20 +405,6 @@ function PortalLayout({ pagePath }) {
             const isOpen =
               openGroup === group.title ||
               group.pages.some((page) => page.path === pagePath);
-              if (group.path) {
-  return (
-    <NavLink
-      key={group.path}
-      to={group.path}
-      className={({ isActive }) =>
-        `menu-group-btn single ${isActive ? "active" : ""}`
-      }
-    >
-      <span className="group-icon">{group.icon}</span>
-      <span className="group-title">{group.title}</span>
-    </NavLink>
-  );
-}
 
             return (
               <div
@@ -498,7 +430,8 @@ function PortalLayout({ pagePath }) {
                         `submenu-item ${isActive ? "active" : ""}`
                       }
                     >
-                      {page.title}
+                      <span className="submenu-icon">{page.icon}</span>
+                      <span>{page.title}</span>
                     </NavLink>
                   ))}
                 </div>
