@@ -124,6 +124,10 @@ const pageTitles = {
     title: "لوحة معلومات المعمل المركزي",
     subtitle: "عرض شامل لمبيعات الفروع والأصناف وتحليل الأداء لدعم اتخاذ القرار",
   },
+    "/lab-details": {
+    title: "اللوحة التفصيلية لمبيعات المعمل المركزي",
+    subtitle: "عرض تفصيلي لمبيعات الفروع والأصناف وتحليل الأداء لدعم اتخاذ القرار",
+  },
 };
 
 const menuGroups = [
@@ -202,6 +206,8 @@ const menuGroups = [
     icon: <FlaskConical size={20} />,
     pages: [
       { title: "المعمل المركزي", path: "/lab", icon: <FlaskConical size={16} /> },
+      { title: "تفاصيل مبيعات المعمل", path: "/lab", icon: <FlaskConical size={16} /> },
+
     ],
   },
 ];
@@ -233,6 +239,7 @@ const userPermissions = {
   "/franchise-payments",
 
   "/lab",
+  "/lab-details",
   ],
   "abdullah@tabur.sa": [
       "/dashboard",
@@ -261,20 +268,24 @@ const userPermissions = {
   "/franchise-payments",
 
   "/lab",
+  "/lab-details",
   ],
   "finance@tabur.sa": [
+     "/dashboard",
     "/finance",
     "/finance-kpis",
     "/finance-cash",
     "/rent-contracts",
   ],
   "quality@tabur.sa": [
+     "/dashboard",
     "/quality",
     "/quality-score",
     "/quality-notes",
     "/customer-complaints",
   ],
   "khaled@tabur.sa": [
+     "/dashboard",
     "/operations",
     "/orders-details",
     "/apps-details",
@@ -283,13 +294,15 @@ const userPermissions = {
     "/operations-complaints",
   ],
   "hr@tabur.sa": [
+     "/dashboard",
     "/hr",
     "/hr-workforce",
     "/hr-compliance",
     "/rents-contracts",
   ],
-  "marketing@tabur.sa": ["/marketing"],
+  "marketing@tabur.sa": [ "/dashboard","/marketing"],
   "franchise@tabur.sa": [
+     "/dashboard",
     "/franchise",
     "/franchise-compliance",
     "/franchise-payments",
@@ -319,6 +332,7 @@ const reportSections = {
   "/franchise-compliance": "93f9ca943d246723deb2",
   "/franchise-payments": "7858c1fe7d2c37adb721",
   "/lab": "a9e228f6ed216e03cb4d",
+  "/lab-details": "17008c6744d05798cd94",
 };
 
 function LoginPage() {
