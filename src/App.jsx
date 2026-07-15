@@ -206,7 +206,7 @@ const menuGroups = [
     icon: <FlaskConical size={20} />,
     pages: [
       { title: "المعمل المركزي", path: "/lab", icon: <FlaskConical size={16} /> },
-      { title: "تفاصيل مبيعات المعمل", path: "/lab", icon: <FlaskConical size={16} /> },
+      { title: "تفاصيل مبيعات المعمل", path: "/lab-details", icon: <FlaskConical size={16} /> },
 
     ],
   },
