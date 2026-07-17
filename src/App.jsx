@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate, NavLink } from "react-router-dom";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "./authConfig";
@@ -288,22 +288,12 @@ const reportSections = {
   "/lab": "a9e228f6ed216e03cb4d",
   "/lab-details": "17008c6744d05798cd94",
 };
-report.on("loaded", async () => {
-  const pages = await report.getPages();
-  const activePage = pages.find(p => p.isActive);
-  const visuals = await activePage.getVisuals();
 
-  // دوري على الكرت بعنوانه
-  const card = visuals.find(v => v.type === "card" && v.title === "Last_Update_Text");
-  if (!card) return;
+// ====== ضعي معرّفات Power BI هنا (مرّة وحدة) ======
+const POWERBI_GROUP_ID = "ضعي_Workspace_ID_هنا";   // معرّف الـ Workspace / Group
+const POWERBI_DATASET_ID = "ضعي_Dataset_ID_هنا";   // معرّف الـ Dataset
+// ==================================================
 
-  const result = await card.exportData(1); // 1 = Summarized
-  // result.data يرجع CSV: سطر عنوان + سطر القيمة
-  const line = result.data.split("\n")[1] || "";
-  const value = line.replace(/"/g, "").trim();
-
-  setLastUpdate(value); // ← state في الـ React
-});
 function LoginPage() {
   const { instance, accounts } = useMsal();
 
@@ -371,6 +361,47 @@ function ProtectedRoute({ children }) {
 function PortalLayout({ pagePath }) {
   const { instance, accounts } = useMsal();
   const [openGroup, setOpenGroup] = useState(null);
+  const [lastUpdate, setLastUpdate] = useState("");
+
+  // جلب وقت آخر تحديث من Power BI REST API
+  useEffect(() => {
+    async function fetchLastRefresh() {
+      try {
+        if (!accounts[0]) return;
+
+        const token = await instance.acquireTokenSilent({
+          scopes: ["https://analysis.windows.net/powerbi/api/Dataset.Read.All"],
+          account: accounts[0],
+        });
+
+        const res = await fetch(
+          `https://api.powerbi.com/v1.0/myorg/groups/${POWERBI_GROUP_ID}/datasets/${POWERBI_DATASET_ID}/refreshes?$top=1`,
+          { headers: { Authorization: `Bearer ${token.accessToken}` } }
+        );
+
+        const json = await res.json();
+        const last = json.value?.[0];
+        if (!last?.endTime) return;
+
+        // تحويل من UTC إلى توقيت السعودية (UTC+3)
+        const ksa = new Date(new Date(last.endTime).getTime() + 3 * 3600 * 1000);
+        const text = ksa.toLocaleString("en-GB", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        });
+
+        setLastUpdate("آخر تحديث: " + text);
+      } catch (e) {
+        console.warn("تعذّر جلب وقت التحديث:", e);
+      }
+    }
+
+    fetchLastRefresh();
+  }, [instance, accounts]);
 
   const userName = accounts[0]?.name || "مستخدم طابور";
 
@@ -417,8 +448,7 @@ function PortalLayout({ pagePath }) {
 
         <nav className="sidebar-menu">
           {allowedMenuGroups.map((group) => {
-                       const isOpen = openGroup === group.title;
-
+            const isOpen = openGroup === group.title;
 
             return (
               <div
