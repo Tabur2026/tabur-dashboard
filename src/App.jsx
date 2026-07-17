@@ -288,7 +288,22 @@ const reportSections = {
   "/lab": "a9e228f6ed216e03cb4d",
   "/lab-details": "17008c6744d05798cd94",
 };
+report.on("loaded", async () => {
+  const pages = await report.getPages();
+  const activePage = pages.find(p => p.isActive);
+  const visuals = await activePage.getVisuals();
 
+  // دوري على الكرت بعنوانه
+  const card = visuals.find(v => v.type === "card" && v.title === "Last_Update_Text");
+  if (!card) return;
+
+  const result = await card.exportData(1); // 1 = Summarized
+  // result.data يرجع CSV: سطر عنوان + سطر القيمة
+  const line = result.data.split("\n")[1] || "";
+  const value = line.replace(/"/g, "").trim();
+
+  setLastUpdate(value); // ← state في الـ React
+});
 function LoginPage() {
   const { instance, accounts } = useMsal();
 
@@ -452,6 +467,7 @@ function PortalLayout({ pagePath }) {
           <div className="header-title">
             <h3>{currentPage.title}</h3>
             <p>{currentPage.subtitle}</p>
+            {lastUpdate && <span className="last-update">{lastUpdate}</span>}
           </div>
 
           <div className="user-box">
