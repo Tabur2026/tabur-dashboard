@@ -345,7 +345,7 @@ function LoginPage() {
       <section className="auth-card">
         <img src="/profile_tabur2022.png" alt="طابور" className="auth-logo" />
         <h1 className="auth-title">بـوابــة طـابــور الــذكــيــة</h1>
-        <p className="auth-sub">تسجيل الدخول لعرض لوحة البيانات</p>
+        <p className="auth-sub">منصة القيادة التنفيذية لمؤشرات الأداء</p>
 
         <span className="auth-divider" />
 
