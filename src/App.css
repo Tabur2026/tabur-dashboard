@@ -107,6 +107,7 @@ body {
   margin-top: 20px;
   font-size: 11.5px;
   color: var(--muted);
+  font-family: 'Cairo', sans-serif;
   letter-spacing: 0.02em;
 }
 
