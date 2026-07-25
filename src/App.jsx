@@ -304,7 +304,6 @@ function findGroupTitle(path) {
   const g = menuGroups.find((grp) => grp.pages.some((p) => p.path === path));
   return g ? g.title : null;
 }
-
 function LoginPage() {
   const { instance, accounts } = useMsal();
 
@@ -324,7 +323,6 @@ function LoginPage() {
       return (
         <main className="auth" dir="rtl">
           <section className="auth-card">
-            <span className="auth-rule" />
             <img src="/profile_tabur2022.png" alt="طابور" className="auth-logo" />
             <h1 className="auth-title">لا توجد صلاحيات لهذا الحساب</h1>
             <p className="auth-sub">{userEmail}</p>
@@ -345,16 +343,17 @@ function LoginPage() {
   return (
     <main className="auth" dir="rtl">
       <section className="auth-card">
-        <span className="auth-rule" />
         <img src="/profile_tabur2022.png" alt="طابور" className="auth-logo" />
         <h1 className="auth-title">بـوابــة طـابــور الــذكــيــة</h1>
-        <p className="auth-sub">منصّة القيادة التنفيذية لمؤشرات الأداء</p>
+        <p className="auth-sub">تسجيل الدخول لعرض لوحة البيانات</p>
+
+        <span className="auth-divider" />
 
         <button className="btn-primary" onClick={handleLogin}>
           تسجيل الدخول بحساب الشركة
         </button>
 
-        <p className="auth-note">مؤمّن عبر Microsoft Entra ID</p>
+        <p className="auth-note">يستخدم Microsoft Entra ID لتأمين الدخول</p>
       </section>
     </main>
   );
