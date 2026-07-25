@@ -119,6 +119,14 @@ const pageTitles = {
     title: "لوحة معلومات إدارة التسويق",
     subtitle: "لوحة مؤشرات الحملات والتفاعل ونمو العملاء",
   },
+    "/marketing-plan": {
+    title: "الخطة التسويقية والإنجاز",
+    subtitle: "متابعة الأنشطة التسويقية المخططة شهرياً وسنوياً ونسب الإنجاز مقابل المستهدف",
+  },
+  "/marketing-budget": {
+    title: "الميزانية التسويقية",
+    subtitle: "متابعة الميزانية المعتمدة مقابل المصروف الفعلي والانحرافات حسب البند والقناة",
+  },
   "/franchise": {
     title: "لوحة معلومات إدارة الامتياز التجاري",
     subtitle: "لوحة متابعة مراحل الامتياز التجاري والتوسع",
@@ -211,6 +219,8 @@ const menuGroups = [
     icon: <Megaphone size={19} />,
     pages: [
       { title: "لوحة التسويق", path: "/marketing", icon: <Megaphone size={16} /> },
+       { title: "االخطة التسويقية والإنجاز", path: "/marketing-plan", icon: <Megaphone size={16} /> },
+       { title: "الميزانية التسويقية", path: "/marketing-budget", icon: <Megaphone size={16} /> },
     ],
   },
 
@@ -231,7 +241,7 @@ const userPermissions = {
     "/operations", "/orders-details", "/apps-details", "/workforce-productivity",
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
     "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
-    "/marketing", "/franchise", "/franchise-compliance", "/franchise-payments",
+    "/marketing", "/marketing-plan", "/marketing-budget", "/franchise", "/franchise-compliance", "/franchise-payments",
     "/lab", "/lab-details",
   ],
   "abdullah@tabur.sa": [
@@ -240,7 +250,7 @@ const userPermissions = {
     "/operations", "/orders-details", "/apps-details", "/workforce-productivity",
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
     "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
-    "/marketing", "/franchise", "/franchise-compliance", "/franchise-payments",
+    "/marketing", "/marketing-plan", "/marketing-budget","/franchise", "/franchise-compliance", "/franchise-payments",
     "/lab", "/lab-details",
   ],
   "finance@tabur.sa": [
@@ -260,7 +270,7 @@ const userPermissions = {
     "/dashboard", "/meeting",
     "/hr", "/hr-workforce", "/hr-compliance", "/rents-contracts",
   ],
-  "marketing@tabur.sa": ["/dashboard", "/marketing"],
+  "marketing@tabur.sa": ["/dashboard", "/marketing", "/marketing-plan", "/marketing-budget" ],
   "franchise@tabur.sa": [
     "/dashboard", "/meeting",
     "/franchise", "/franchise-compliance", "/franchise-payments",
@@ -292,6 +302,8 @@ const reportSections = {
   "/franchise-payments": "7858c1fe7d2c37adb721",
   "/lab": "a9e228f6ed216e03cb4d",
   "/lab-details": "17008c6744d05798cd94",
+  "/marketing-plan":"987e8acc33788e40b343",
+  "/marketing-budget": "52aadd0237e569b006aa",
 };
 
 // ====== معرّفات Power BI ======
