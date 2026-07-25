@@ -67,7 +67,7 @@ body {
 .auth-card {
   position: relative;
   width: 100%;
-  max-width: 440px;
+  max-width: 540px;
   background: var(--panel);
   border-radius: var(--r-xl);
   padding: 52px 44px 40px;
