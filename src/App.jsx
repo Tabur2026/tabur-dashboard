@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Routes, Route, Navigate, NavLink } from "react-router-dom";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "./authConfig";
@@ -21,13 +21,18 @@ import {
   Briefcase,
   MapPinned,
   ClipboardCheck,
-  FileSearch,
   MessageSquareWarning,
   ShieldCheck,
   FileText,
   Receipt,
   CalendarCheck,
   ListTodo,
+  RefreshCw,
+  Maximize2,
+  Minimize2,
+  LogOut,
+  Menu,
+  X,
 } from "lucide-react";
 
 const pageTitles = {
@@ -63,16 +68,16 @@ const pageTitles = {
   "/orders-details": {
     title: "تفاصيل الطلبات",
     subtitle:
-      "تحليل تفصيلي للطلبات حسب الفروع وقنوات البيع وحالة الطلبات لدعم متابعة الأداء التشغيلي",
+      "تحليل تفصيلي للطلبات حسب الفروع لدعم متابعة الأداء التشغيلي",
   },
   "/apps-details": {
     title: "تفاصيل التطبيقات",
-    subtitle: "متابعة أداء تطبيقات التوصيل وتحليل المبيعات والطلبات حسب كل منصة",
+    subtitle: "متابعة أداء تطبيقات التوصيل وتحليل المبيعات حسب كل منصة",
   },
   "/workforce-productivity": {
     title: "إنتاجية القوى العاملة",
     subtitle:
-      "قياس إنتاجية الموظفين والفروع وربط الأداء التشغيلي بساعات العمل وحجم الطلبات",
+      "قياس الإنتاجية وربطها بالطلبات وساعات العمل",
   },
   "/google-rating": {
     title: "تقييمات جوجل ماب",
@@ -139,7 +144,7 @@ const pageTitles = {
 const menuGroups = [
   {
     title: "الرئيسية",
-    icon: <Home size={20} />,
+    icon: <Home size={19} />,
     pages: [
       { title: "لوحة مهام الفريق الإداري", path: "/dashboard", icon: <ListTodo size={16} /> },
       { title: "مؤشرات الاجتماعات الدورية", path: "/meeting", icon: <CalendarCheck size={16} /> },
@@ -148,7 +153,7 @@ const menuGroups = [
 
   {
     title: "الإدارة المالية",
-    icon: <Wallet size={20} />,
+    icon: <Wallet size={19} />,
     pages: [
       { title: "لوحة المالية", path: "/finance", icon: <Wallet size={16} /> },
       { title: "مؤشرات المالية", path: "/finance-kpis", icon: <BarChart3 size={16} /> },
@@ -159,7 +164,7 @@ const menuGroups = [
 
   {
     title: "إدارة التشغيل",
-    icon: <Settings size={20} />,
+    icon: <Settings size={19} />,
     pages: [
       { title: "لوحة التشغيل", path: "/operations", icon: <Settings size={16} /> },
       { title: "تفاصيل الطلبات", path: "/orders-details", icon: <ShoppingCart size={16} /> },
@@ -172,7 +177,7 @@ const menuGroups = [
 
   {
     title: "إدارة الجودة",
-    icon: <Star size={20} />,
+    icon: <Star size={19} />,
     pages: [
       { title: "لوحة الجودة", path: "/quality", icon: <Star size={16} /> },
       { title: "تقييم جودة الفروع", path: "/quality-score", icon: <ClipboardCheck size={16} /> },
@@ -182,7 +187,7 @@ const menuGroups = [
 
   {
     title: "إدارة الموارد البشرية",
-    icon: <Users size={20} />,
+    icon: <Users size={19} />,
     pages: [
       { title: "لوحة الموارد البشرية", path: "/hr", icon: <Users size={16} /> },
       { title: "امتثال القوى العاملة", path: "/hr-workforce", icon: <Briefcase size={16} /> },
@@ -193,7 +198,7 @@ const menuGroups = [
 
   {
     title: "إدارة الامتياز التجاري",
-    icon: <Handshake size={20} />,
+    icon: <Handshake size={19} />,
     pages: [
       { title: "لوحة الامتياز", path: "/franchise", icon: <Handshake size={16} /> },
       { title: "سجل الممنوحين", path: "/franchise-compliance", icon: <ClipboardCheck size={16} /> },
@@ -203,7 +208,7 @@ const menuGroups = [
 
   {
     title: "إدارة التسويق",
-    icon: <Megaphone size={20} />,
+    icon: <Megaphone size={19} />,
     pages: [
       { title: "لوحة التسويق", path: "/marketing", icon: <Megaphone size={16} /> },
     ],
@@ -211,7 +216,7 @@ const menuGroups = [
 
   {
     title: "المعمل المركزي",
-    icon: <FlaskConical size={20} />,
+    icon: <FlaskConical size={19} />,
     pages: [
       { title: "المعمل المركزي", path: "/lab", icon: <FlaskConical size={16} /> },
       { title: "تفاصيل مبيعات المعمل", path: "/lab-details", icon: <FlaskConical size={16} /> },
@@ -289,10 +294,16 @@ const reportSections = {
   "/lab-details": "17008c6744d05798cd94",
 };
 
-// ====== ضعي معرّفات Power BI هنا (مرّة وحدة) ======
-const POWERBI_GROUP_ID = "ضعي_Workspace_ID_هنا";   // معرّف الـ Workspace / Group
-const POWERBI_DATASET_ID = "ضعي_Dataset_ID_هنا";   // معرّف الـ Dataset
+// ====== معرّفات Power BI ======
+const POWERBI_GROUP_ID = "6bcc7dd2-30e5-4078-a153-d73ee1aee36f";   // معرّف الـ Workspace / Group
+const POWERBI_DATASET_ID = "f3f3ba1d-efed-4054-bc33-167a12e56491";   // معرّف الـ Dataset
 // ==================================================
+
+/* الإدارة (المجموعة) التي تحتوي المسار الحالي */
+function findGroupTitle(path) {
+  const g = menuGroups.find((grp) => grp.pages.some((p) => p.path === path));
+  return g ? g.title : null;
+}
 
 function LoginPage() {
   const { instance, accounts } = useMsal();
@@ -311,13 +322,14 @@ function LoginPage() {
 
     if (allowedPages.length === 0) {
       return (
-        <main className="login-page" dir="rtl">
-          <section className="login-card">
-            <img src="/profile_tabur2022.png" alt="طابور" className="logo" />
-            <h1>لا توجد صلاحيات لهذا الحساب</h1>
-            <p>{userEmail}</p>
+        <main className="auth" dir="rtl">
+          <section className="auth-card">
+            <span className="auth-rule" />
+            <img src="/profile_tabur2022.png" alt="طابور" className="auth-logo" />
+            <h1 className="auth-title">لا توجد صلاحيات لهذا الحساب</h1>
+            <p className="auth-sub">{userEmail}</p>
             <button
-              className="login-button"
+              className="btn-primary"
               onClick={() => instance.logoutRedirect()}
             >
               تسجيل الخروج
@@ -331,18 +343,18 @@ function LoginPage() {
   }
 
   return (
-    <main className="login-page" dir="rtl">
-      <section className="login-card">
-        <img src="/profile_tabur2022.png" alt="طابور" className="logo" />
-        <h1>بـوابــة طـابــور الــذكــيــة</h1>
-        <p>تسجيل الدخول لعرض لوحة البيانات</p>
-        <div className="divider"></div>
+    <main className="auth" dir="rtl">
+      <section className="auth-card">
+        <span className="auth-rule" />
+        <img src="/profile_tabur2022.png" alt="طابور" className="auth-logo" />
+        <h1 className="auth-title">بـوابــة طـابــور الــذكــيــة</h1>
+        <p className="auth-sub">منصّة القيادة التنفيذية لمؤشرات الأداء</p>
 
-        <button className="login-button" onClick={handleLogin}>
+        <button className="btn-primary" onClick={handleLogin}>
           تسجيل الدخول بحساب الشركة
         </button>
 
-        <p className="security-note">يستخدم Microsoft Entra ID لتأمين الدخول</p>
+        <p className="auth-note">مؤمّن عبر Microsoft Entra ID</p>
       </section>
     </main>
   );
@@ -360,8 +372,43 @@ function ProtectedRoute({ children }) {
 
 function PortalLayout({ pagePath }) {
   const { instance, accounts } = useMsal();
-  const [openGroup, setOpenGroup] = useState(null);
+  const [openGroup, setOpenGroup] = useState(() => findGroupTitle(pagePath));
   const [lastUpdate, setLastUpdate] = useState("");
+  const [drawer, setDrawer] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [nonce, setNonce] = useState(0);
+  const [spin, setSpin] = useState(false);
+  const [userOpen, setUserOpen] = useState(false);
+  const userRef = useRef(null);
+
+  // فتح إدارة الصفحة الحالية تلقائياً عند التنقل
+  useEffect(() => {
+    setOpenGroup(findGroupTitle(pagePath));
+    setDrawer(false);
+  }, [pagePath]);
+
+  // خروج من ملء الشاشة بمفتاح Esc + إغلاق قائمة المستخدم
+  useEffect(() => {
+    const onEsc = (e) => {
+      if (e.key === "Escape") {
+        setExpanded(false);
+        setUserOpen(false);
+      }
+    };
+    window.addEventListener("keydown", onEsc);
+    return () => window.removeEventListener("keydown", onEsc);
+  }, []);
+
+  // إغلاق قائمة المستخدم عند الضغط خارجها
+  useEffect(() => {
+    const onClick = (e) => {
+      if (userRef.current && !userRef.current.contains(e.target)) {
+        setUserOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, []);
 
   // جلب وقت آخر تحديث من Power BI REST API
   useEffect(() => {
@@ -369,10 +416,17 @@ function PortalLayout({ pagePath }) {
       try {
         if (!accounts[0]) return;
 
-        const token = await instance.acquireTokenSilent({
+        // نحاول جلب التوكن بصمت، وإن فشل نطلب موافقة تفاعلية (مرة واحدة)
+        let token;
+        const request = {
           scopes: ["https://analysis.windows.net/powerbi/api/Dataset.Read.All"],
           account: accounts[0],
-        });
+        };
+        try {
+          token = await instance.acquireTokenSilent(request);
+        } catch {
+          token = await instance.acquireTokenPopup(request);
+        }
 
         const res = await fetch(
           `https://api.powerbi.com/v1.0/myorg/groups/${POWERBI_GROUP_ID}/datasets/${POWERBI_DATASET_ID}/refreshes?$top=1`,
@@ -384,8 +438,8 @@ function PortalLayout({ pagePath }) {
         if (!last?.endTime) return;
 
         // تحويل من UTC إلى توقيت السعودية (UTC+3)
-        const ksa = new Date(new Date(last.endTime).getTime() + 3 * 3600 * 1000);
-        const text = ksa.toLocaleString("en-GB", {
+          const ksa = new Date(last.endTime);
+           const text = ksa.toLocaleString("en-GB", {
           day: "2-digit",
           month: "2-digit",
           year: "numeric",
@@ -394,7 +448,7 @@ function PortalLayout({ pagePath }) {
           hour12: true,
         });
 
-        setLastUpdate("آخر تحديث: " + text);
+        setLastUpdate(text);
       } catch (e) {
         console.warn("تعذّر جلب وقت التحديث:", e);
       }
@@ -429,6 +483,7 @@ function PortalLayout({ pagePath }) {
 
   const currentPage = pageTitles[pagePath] || pageTitles["/dashboard"];
   const sectionId = reportSections[pagePath] || reportSections["/dashboard"];
+  const activeGroup = findGroupTitle(pagePath);
 
   const powerBiUrl =
     `https://app.powerbi.com/reportEmbed?reportId=63993055-b8ca-4fa3-b07c-2a359e95abaa` +
@@ -439,82 +494,154 @@ function PortalLayout({ pagePath }) {
     `&pageView=fitToWidth` +
     `&pageName=${sectionId}`;
 
+  const refresh = () => {
+    setSpin(true);
+    setNonce((n) => n + 1);
+    window.setTimeout(() => setSpin(false), 900);
+  };
+
   return (
-    <div className="portal-page" dir="rtl">
-      <aside className="portal-sidebar">
-        <div className="sidebar-logo">
-          <img src="/profile_tabur2022.png" alt="Tabur" />
+    <div className={`shell${expanded ? " is-expanded" : ""}`} dir="rtl">
+      {/* ستارة الجوال */}
+      <div
+        className={`scrim${drawer ? " show" : ""}`}
+        onClick={() => setDrawer(false)}
+      />
+
+      {/* ============ الشريط الجانبي ============ */}
+      <aside className={`rail${drawer ? " show" : ""}`}>
+        <div className="rail-top">
+          <div className="rail-brand">
+            <img src="/profile_tabur2022.png" alt="Tabur" />
+          </div>
+          <button
+            className="rail-close"
+            onClick={() => setDrawer(false)}
+            aria-label="إغلاق القائمة"
+          >
+            <X size={18} />
+          </button>
         </div>
 
-        <nav className="sidebar-menu">
+        <nav className="rail-nav" aria-label="أقسام اللوحة">
           {allowedMenuGroups.map((group) => {
             const isOpen = openGroup === group.title;
+            const isActive = activeGroup === group.title;
 
             return (
-              <div
-                className={`menu-group ${isOpen ? "open" : ""}`}
-                key={group.title}
-              >
+              <div className={`nav-group${isOpen ? " open" : ""}`} key={group.title}>
                 <button
                   type="button"
-                  className={`menu-group-btn ${isOpen ? "active" : ""}`}
+                  className={`nav-head${isActive ? " active" : ""}`}
                   onClick={() => setOpenGroup(isOpen ? null : group.title)}
+                  aria-expanded={isOpen}
                 >
-                  <span className="group-icon">{group.icon}</span>
-                  <span className="group-title">{group.title}</span>
-                  <ChevronDown size={16} className="chevron" />
+                  <span className="nav-ico">{group.icon}</span>
+                  <span className="nav-label">{group.title}</span>
+                  <ChevronDown size={15} className="nav-chev" />
                 </button>
 
-                <div className="submenu">
-                  {group.pages.map((page) => (
-                    <NavLink
-                      key={page.path}
-                      to={page.path}
-                      className={({ isActive }) =>
-                        `submenu-item ${isActive ? "active" : ""}`
-                      }
-                    >
-                      <span className="submenu-icon">{page.icon}</span>
-                      <span>{page.title}</span>
-                    </NavLink>
-                  ))}
+                <div className="nav-sub">
+                  <div className="nav-sub-inner">
+                    {group.pages.map((page) => (
+                      <NavLink
+                        key={page.path}
+                        to={page.path}
+                        className={({ isActive }) =>
+                          `nav-link${isActive ? " active" : ""}`
+                        }
+                      >
+                        <span className="nav-link-ico">{page.icon}</span>
+                        <span>{page.title}</span>
+                      </NavLink>
+                    ))}
+                  </div>
                 </div>
               </div>
             );
           })}
         </nav>
-
-        <button
-          className="sidebar-logout"
-          onClick={() => instance.logoutRedirect()}
-        >
-          تسجيل الخروج
-        </button>
       </aside>
 
-      <main className="portal-main">
-        <header className="portal-header">
-          <div className="header-title">
-            <h3>{currentPage.title}</h3>
-            <p>{currentPage.subtitle}</p>
-            {lastUpdate && <span className="last-update">{lastUpdate}</span>}
+      {/* ============ مساحة العمل ============ */}
+      <main className="work">
+        <header className="work-head">
+          <div className="work-head-start">
+            <button
+              className="work-burger"
+              onClick={() => setDrawer(true)}
+              aria-label="فتح القائمة"
+            >
+              <Menu size={19} />
+            </button>
+            <div className="work-titles">
+              <h1 className="work-title">{currentPage.title}</h1>
+              <p className="work-sub">{currentPage.subtitle}</p>
+            </div>
           </div>
 
-          <div className="user-box">
-            <div className="avatar">{userName.charAt(0)}</div>
-            <div className="user-info">
-              <span>مرحباً</span>
-              <strong>{userName}</strong>
+          <div className="work-tools">
+            <div className="tools-row">
+              <button
+                className="tool"
+                onClick={() => setExpanded((v) => !v)}
+                aria-label={expanded ? "إنهاء ملء الشاشة" : "ملء الشاشة"}
+              >
+                {expanded ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+              </button>
+
+              <button className="tool" onClick={refresh} aria-label="تحديث التقرير">
+                <RefreshCw size={16} className={spin ? "spin" : undefined} />
+              </button>
+
+              <div className={`user${userOpen ? " open" : ""}`} ref={userRef}>
+                <button
+                  type="button"
+                  className="user-btn"
+                  onClick={() => setUserOpen((v) => !v)}
+                  aria-expanded={userOpen}
+                >
+                  <span className="user-avatar">{userName.charAt(0)}</span>
+                  <span className="user-name">{userName}</span>
+                  <ChevronDown size={15} className="user-chev" />
+                </button>
+
+                <div className="user-menu">
+                  <div className="user-menu-head">
+                    <span className="user-menu-avatar">{userName.charAt(0)}</span>
+                    <div className="user-menu-meta">
+                      <strong>{userName}</strong>
+                      <span>{userEmail}</span>
+                    </div>
+                  </div>
+                  <div className="user-menu-body">
+                    <button
+                      type="button"
+                      className="user-menu-logout"
+                      onClick={() => instance.logoutRedirect()}
+                    >
+                      <LogOut size={17} />
+                      تسجيل الخروج
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            {lastUpdate && (
+              <span className="stamp">
+                آخر تحديث للبيانات · <bdi>{lastUpdate}</bdi>
+              </span>
+            )}
           </div>
         </header>
 
-        <section className="report-card">
+        <section className="report">
           <iframe
-            key={pagePath}
+            key={`${pagePath}-${nonce}`}
             title={currentPage.title}
             src={powerBiUrl}
-            className="powerbi-frame"
+            className="report-frame"
             allowFullScreen
           />
         </section>

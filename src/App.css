@@ -1,393 +1,548 @@
+/* ==================================================================
+   بوابة طابور التنفيذية — نظام التصميم (النسخة الفاتحة)
+   إحساس عصري نظيف، تدرّجات تركواز طابور، مساحات سخيّة.
+   يطابق البنية والأصناف الموجودة في App.jsx.
+   ================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
+
 :root {
-  --green: #7faea1;
-  --dark-green: #4f7f73;
-  --text: #252525;
-  --gray: #6f777a;
-  --peach: #d8c6bf;
-  --bg: #fcfcfb;
-  --glass: rgba(255, 255, 255, 0.72);
+  /* الحبر */
+  --ink:        #142E2A;
+  --ink-2:      #35514C;
+  --muted:      #7C8D89;
+
+  /* التركواز — الهوية */
+  --teal:       #3E8C84;
+  --teal-deep:  #2A625C;
+  --teal-dark:  #1D4A45;
+  --teal-300:   #7FBDB4;
+  --teal-wash:  #EAF3F1;
+
+  /* المرجاني — لمسة دافئة */
+  --coral:      #E0705F;
+
+  /* الأسطح */
+  --canvas:     #F2F5F9;
+  --panel:      #FFFFFF;
+  --panel-2:    #F7F5F0;
+  --line:       #EAE6DC;
+
+  /* التدرّج البطل */
+  --grad: linear-gradient(150deg, #4FA69C 0%, #2F6C64 100%);
+
+  --r-xl: 26px;
+  --r-lg: 20px;
+  --r-md: 14px;
+  --r-sm: 10px;
+
+  --rail-w: 280px;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html,
-body,
-#root {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  font-family: "Cairo", sans-serif;
-}
+* { box-sizing: border-box; }
 
 body {
-  overflow: hidden;
-  color: var(--text);
-}
-
-/* LOGIN */
-.login-page {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background:
-  linear-gradient(rgba(127, 174, 161, 0.16) 1px, transparent 1px),
-  linear-gradient(90deg, rgba(127, 174, 161, 0.16) 1px, transparent 1px),
-  #fcfcfb;
-  background-size: 44px 44px;
-}
-
-.login-card {
-  width: 520px;
-  min-height: 480px;
-  background: rgba(255, 255, 255, 0.86);
-  border-radius: 34px;
-  box-shadow: 0 25px 70px rgba(79, 127, 115, 0.16);
-  border: 1px solid rgba(216, 198, 191, 0.45);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-   font-family: "Cairo", sans-serif;
-  justify-content: center;
-  gap: 18px;
-  padding: 50px;
-}
-
-.logo {
-  width: 120px;
-  object-fit: contain;
-}
-
-.login-card h1 {
   margin: 0;
-  font-size: 28px;
-  font-weight:700;
-  margin-top:30px;
-   font-family: "Cairo", sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-.login-card p {
-  margin: 0;
-  font-size:13px ;
-  color: var(--gray);
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+  border-radius: 8px;
 }
 
-.divider {
-  width: 70%;
-  height: 1px;
-  background: var(--peach);
-  margin: 12px 0;
-}
-
-
-.login-button {
-  width: 340px;
-  height: 64px;
-  border: none;
-  border-radius: 14px;
-  background: var(--dark-green);
-  color: white;
-  font-size: 16px;
-  font-weight: 800;
-  font-family: "Cairo", sans-serif;
-  cursor: pointer;
-  box-shadow: 0 16px 35px rgba(79, 127, 115, 0.28);
-}
-
-.security-note {
-  font-size: 14px;
-}
-
-/* PORTAL */
-.portal-page {
-  width: 100vw;
-  height: 100vh;
-  padding: 15px;
+/* ==================================================================
+   تسجيل الدخول
+   ================================================================== */
+.auth {
+  min-height: 100vh;
   display: grid;
-  grid-template-columns: 230px 1fr;
-  gap: 12px;
+  place-items: center;
+  padding: 24px;
   background:
-    radial-gradient(circle at 8% 85%, rgba(127, 174, 161, 0.18), transparent 26%),
-    radial-gradient(circle at 95% 8%, rgba(216, 198, 191, 0.28), transparent 24%),
-    linear-gradient(rgba(127, 174, 161, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(127, 174, 161, 0.055) 1px, transparent 1px),
-    var(--bg);
-  background-size: auto, auto, 44px 44px, 44px 44px;
+    radial-gradient(1200px 680px at 82% -12%, var(--teal-wash) 0%, transparent 55%),
+    radial-gradient(900px 620px at 8% 112%, #EDE8DE 0%, transparent 52%),
+    var(--canvas);
 }
 
-.portal-sidebar,
-.portal-main {
-  background: var(--glass);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.75);
-  box-shadow: 0 24px 65px rgba(79, 127, 115, 0.14);
-}
-
-.portal-sidebar {
-  border-radius: 8px;
-  padding: 10px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-    height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-.portal-sidebar::-webkit-scrollbar {
-  width: 8px;
-}
-
-.portal-sidebar::-webkit-scrollbar-thumb {
-  background: #7faea1;
-  border-radius: 20px;
-}
-
-.portal-sidebar::-webkit-scrollbar-track {
-  background: transparent;
-}
-.sidebar-logo {
+.auth-card {
+  position: relative;
   width: 100%;
-  height: 90px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom:0;
-}
-
-.sidebar-logo img {
-  width: 130px;
-  height: auto;
-  object-fit: contain;
-}
-
-.sidebar-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.menu-item {
-  height: 40px;
-  border: none;
-  border-radius: 8px;
-  background: transparent;
-    text-decoration: none;
-  color: #000;
-  font-family: "Cairo", sans-serif;
-  font-size: 12px;
-  font-weight: 800;
-  padding: 0 12px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 12px;
-  text-align: right;
-}
-
-.menu-item svg {
-  flex-shrink: 0;
-  stroke-width: 2.4;
-}
-
-.menu-item:hover {
-  background: rgba(127, 174, 161, 0.13);
-}
-
-.menu-item.active {
-  color: white;
-  background: var(--dark-green);
-  box-shadow: 0 14px 28px rgba(79, 127, 115, 0.24);
-}
-
-.sidebar-logout {
-  margin-top:0px;
-  height: 40px;
-  border: none;
-  border-radius: 8px;
-  background: rgba(216, 198, 191, 0.36);
-  color: var(--dark-green);
-  font-family: "Cairo", sans-serif;
-  font-size: 12px;
-  font-weight: 800;
-  cursor: pointer;
-}
-
-/* MAIN */
-.portal-main {
-  border-radius: 8px;
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  font-family: "Cairo", sans-serif;
+  max-width: 440px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  padding: 52px 44px 40px;
+  text-align: center;
+  box-shadow: 0 40px 90px -50px rgba(20, 46, 42, 0.4);
   overflow: hidden;
-  background: #F2F5F9;
+}
+.auth-rule {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--teal-deep), var(--teal) 55%, var(--coral));
+}
+.auth-logo {
+  width: 88px;
+  height: 88px;
+  object-fit: contain;
+  border-radius: 22px;
+  margin-bottom: 24px;
+}
+.auth-title {
+  font-family: 'Cairo', sans-serif;
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+  color: var(--teal-deep);
+  margin: 0 0 10px;
+  line-height: 1.4;
+}
+.auth-sub {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0 0 30px;
+}
+.auth-note {
+  margin-top: 20px;
+  font-size: 11.5px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
 }
 
-.portal-header {
-  height: 82px;
-  flex-shrink: 0;
+.btn-primary {
+  width: 100%;
+  padding: 15px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--grad);
+  color: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+  box-shadow: 0 16px 34px -16px rgba(47, 108, 100, 0.8);
+}
+.btn-primary:hover { transform: translateY(-1px); filter: brightness(1.04); }
+.btn-primary:active { transform: translateY(0); }
+
+/* ==================================================================
+   الهيكل العام
+   ================================================================== */
+.shell {
+  display: flex;
+  min-height: 100vh;
+  background: var(--canvas);
+}
+
+/* ---------- الشريط الجانبي ---------- */
+.rail {
+  width: var(--rail-w);
+  flex: 0 0 var(--rail-w);
+  background: var(--panel);
+  border-inline-start: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.rail-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(216, 198, 191, 0.35);
-  border-radius: 8px;
-  padding: 0 22px;
-  margin-bottom: 12px;
+  padding: 26px 24px 18px;
+}
+.rail-brand { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; }
+.rail-brand img { height: 56px; width: auto; object-fit: contain; }
+.rail-word {
+  font-family: 'Cairo', sans-serif;
+  font-weight: 900;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  color: var(--teal-deep);
+}
+.rail-close {
+  display: none;
+  border: 0; background: none; cursor: pointer;
+  color: var(--muted); padding: 6px; border-radius: 8px;
 }
 
-.header-title {
+.rail-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 16px 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+.rail-nav::-webkit-scrollbar { width: 6px; }
+.rail-nav::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+
+.nav-group { margin-bottom: 2px; }
+
+.nav-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border: 0;
+  background: none;
+  border-radius: var(--r-md);
+  color: var(--ink-2);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-align: start;
+  cursor: pointer;
+  transition: background 0.16s ease, color 0.16s ease;
+}
+.nav-head:hover { background: var(--panel-2); }
+.nav-group.open .nav-head { color: var(--teal-deep); }
+.nav-head.active {
+  background: var(--teal-wash);
+  color: var(--teal-deep);
+}
+
+.nav-ico { display: inline-flex; color: var(--teal); }
+.nav-label { flex: 1; }
+.nav-chev { color: var(--muted); transition: transform 0.25s ease; flex: 0 0 auto; }
+.nav-group.open .nav-chev { transform: rotate(180deg); }
+
+/* القائمة الفرعية — طيّ ناعم */
+.nav-sub {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.3s cubic-bezier(0.2, 0.9, 0.25, 1);
+}
+.nav-group.open .nav-sub { grid-template-rows: 1fr; }
+.nav-sub-inner { min-height: 0; padding: 2px 0 6px; }
+.nav-sub-inner { visibility: hidden; }
+.nav-group.open .nav-sub-inner { visibility: visible; }
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 40px 9px 14px;
+  margin-top: 2px;
+  border-radius: var(--r-sm);
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 500;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.nav-link:hover { color: var(--ink); background: var(--panel-2); }
+.nav-link.active {
+  color: var(--teal-deep);
+  font-weight: 600;
+  background: var(--teal-wash);
+}
+.nav-link.active::before {
+  content: "";
+  position: absolute;
+  inset-inline-end: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px; height: 62%;
+  border-radius: 4px;
+  background: var(--coral);
+}
+.nav-link-ico { display: inline-flex; opacity: 0.7; }
+.nav-link.active .nav-link-ico { opacity: 1; }
+
+/* ---------- مساحة العمل ---------- */
+.work {
+  flex: 1;
+  min-width: 0;
+  height: 100vh;
+  overflow: hidden;
+  padding: 24px 10px 10px 5px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  background-color: var(--canvas);
+  gap: 10px;
 }
 
-.header-title h3 {
-  margin: 0;
+.work-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding:10px;
+}
+.work-head-start { display: flex; align-items: flex-start; gap: 14px; min-width: 0; }
+
+.work-burger {
+  display: none;
+  width: 42px; height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+  place-items: center;
+  color: var(--ink); cursor: pointer;
+}
+
+.work-titles { min-width: 0; padding:10px;}
+
+.work-title {
+  font-family: 'Cairo', sans-serif;
+  font-weight: 800;
   font-size: 14px;
-  font-weight:700;
-  font-family: "Cairo", sans-serif;
-  color:#000;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--ink);
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
 }
 
-.header-title p {
-  margin: 4px 0 0;
+ 
+.work-sub {
+  color: var(--muted);
+   font-family: 'Cairo', sans-serif;
+  font-size: 14px;
+  margin: 0px 0 0;
+  padding-bottom: 0px;
+  max-width: 620px;
+  line-height: 1.55;
+}
+
+/* ---------- مجموعة الأدوات (يسار الهيدر) ---------- */
+.work-tools {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 0 0 auto;
+  padding-top: 4px;
+}
+.tools-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.tool {
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background 0.16s, color 0.16s, border-color 0.16s;
+}
+.tool:hover { background: var(--teal-wash); color: var(--teal-deep); border-color: var(--teal-300); }
+.spin { animation: rot 0.9s linear infinite; }
+@keyframes rot { to { transform: rotate(360deg); } }
+
+/* ---------- زر المستخدم + القائمة المنسدلة ---------- */
+.user { position: relative; }
+
+.user-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 6px 5px 13px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.16s, border-color 0.16s;
+}
+.user-btn:hover { background: var(--teal-wash); border-color: var(--teal-300); }
+
+.user-avatar {
+  width: 32px; height: 32px; flex: 0 0 32px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--grad);
+  color: #fff;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 700; font-size: 14px;
+}
+.user-name {
   font-size: 13px;
   font-weight: 600;
-  color: var(--gray);
+  color: var(--ink);
+  white-space: nowrap;
+}
+.user-chev {
+  color: var(--muted);
+  transition: transform 0.25s ease;
+  flex: 0 0 auto;
+}
+.user.open .user-chev { transform: rotate(180deg); }
+
+.user-menu {
+  position: absolute;
+  top: 52px;
+  inset-inline-start: 0;
+  width: 234px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px -24px rgba(20, 46, 42, 0.5);
+  overflow: hidden;
+  z-index: 30;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.user.open .user-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
-.user-box {
+.user-menu-head {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 11px;
+  padding: 15px 16px;
+  border-bottom: 1px solid var(--line);
 }
-
-.avatar {
-  width: 36px;
-  height: 36px;
+.user-menu-avatar {
+  width: 38px; height: 38px; flex: 0 0 38px;
   border-radius: 50%;
-  background: var(--dark-green);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  font-weight: 900;
-  text-transform: uppercase;
-  box-shadow: 0 10px 22px rgba(79, 127, 115, 0.25);
-}
-
-.user-info {
-  display: flex;
-  flex-direction: column;
-  text-align: right;
-}
-
-.user-info span {
-  font-size: 12px;
-  color: var(--gray);
-  font-weight: 600;
-}
-
-.user-info strong {
-  font-size: 12px;
-  color: #5f5a70;
-  font-weight: 900;
-}
-
-/* REPORT */
-.report-card {
-  width: 100%;
-  flex: 1;
-  padding: 0;
-  margin-bottom: 0px;
-  margin-top:0;
-  margin-left: 0;
-  margin-right: 0;
-  overflow: hidden;
-  border-radius: 8px;
-  background: #F2F5F9;
-  border: 1px solid #d8c6bf;
-}
-
-.powerbi-frame {
-  width: 100% !important;
-  height: 100% !important;
-  border: 0 !important;
-  display: block;
-}
-.menu-group {
-  width: 100%;
-}
-
-.menu-group-btn {
-  width: 100%;
-  border: none;
-  background: transparent;
-  color: #111;
-  font-family: "Cairo", sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 8px 10px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.menu-group-btn.active,
-.menu-group-btn:hover {
-  background: #5f8f82;
+  display: grid; place-items: center;
+  background: var(--grad);
   color: #fff;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 700; font-size: 15px;
 }
-
-.group-icon {
-  display: flex;
-}
-
-.chevron {
-  margin-right: auto;
-  transition: transform 0.3s ease;
-}
-
-.menu-group.open .chevron {
-  transform: rotate(180deg);
-}
-
- .submenu {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height .4s ease;
-}
-
-.menu-group.open .submenu {
-  max-height: 1000px;
-}
-
-.submenu-item {
+.user-menu-meta { min-width: 0; }
+.user-menu-meta strong {
   display: block;
-  text-decoration: none;
-  color: #333;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.user-menu-meta span {
+  display: block;
   font-size: 11px;
-  font-weight: 700;
-  padding: 10px 14px;
-  margin: 5px 0;
-  border-radius: 10px;
-  transition: 0.25s ease;
+  color: var(--muted);
+  direction: ltr;
+  text-align: right;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
-.submenu-item:hover,
-.submenu-item.active {
-  background: rgba(95, 143, 130, 0.15);
-  color: #4f7f73;
+.user-menu-body { padding: 6px; }
+.user-menu-logout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: var(--coral);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.16s;
 }
-.menu-group-btn.single {
-  text-decoration: none;
+.user-menu-logout:hover { background: #FBEEEC; }
+
+/* نص وقت آخر تحديث — خفيف تحت الأزرار */
+.stamp {
+  font-size: 11px;
+  font-weight: 400;
+  color: #000000;
+  font-variant-numeric: tabular-nums;
+  padding-inline-end: 4px;
+  white-space: nowrap;
+}
+.stamp bdi { color: var(--muted); font-weight: 400; }
+
+/* ---------- بطاقة التقرير ---------- */
+.report {
+   flex: 1;
+  min-height: 0;
+  display: block;
+  background: var(--canvas);
+  border-radius: 0px;
+  overflow: hidden;
+  margin: 0 -10px -10px -5px;
+  
+}
+.report-frame {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background-color: var(--canvas);
+}
+
+/* ملء الشاشة */
+.shell.is-expanded .rail { display: none; }
+.shell.is-expanded .work { padding: 0; gap: 0;  }
+.shell.is-expanded .work-head {
+  display: none; 
+}
+.shell.is-expanded .report {
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+  background-color: var(--canvas);
+}
+
+/* ==================================================================
+   ستارة + استجابة
+   ================================================================== */
+.scrim { display: none; }
+
+@media (max-width: 940px) {
+  .work-burger { display: grid; }
+  .rail-close { display: inline-flex; }
+
+  .rail {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-end: 0;
+    z-index: 50;
+    width: 284px;
+    flex-basis: auto;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.25, 1);
+    box-shadow: -20px 0 50px rgba(20, 46, 42, 0.16);
+  }
+  .rail.show { transform: translateX(0); }
+
+  .scrim {
+    display: block;
+    position: fixed; inset: 0; z-index: 40;
+    background: rgba(20, 46, 42, 0.34);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .scrim.show { opacity: 1; pointer-events: auto; }
+
+  .work { padding: 16px; }
+  .work-title { font-size: 23px; }
+  .user-name { display: none; }
+  .report { border-radius: var(--r-lg); min-height: 460px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
