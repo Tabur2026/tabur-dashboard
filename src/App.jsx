@@ -502,7 +502,7 @@ function PortalLayout({ pagePath }) {
     `&ctid=ab79833e-417a-460e-9da3-37a526b866f1` +
     `&navContentPaneEnabled=false` +
     `&filterPaneEnabled=false` +
-    `&pageView=fitToWidth` +
+    `&pageView=fitToPage` +
     `&pageName=${sectionId}`;
 
   const refresh = () => {
