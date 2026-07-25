@@ -95,6 +95,7 @@ body {
   color: var(--muted);
   font-size: 14px;
   margin: 0 0 22px;
+  font-family: 'Cairo', sans-serif;
 }
 .auth-divider {
   display: block;
