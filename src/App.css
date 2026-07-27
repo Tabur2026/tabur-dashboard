@@ -473,6 +473,7 @@ body {
 .report {
    flex: 1;
   min-height: 0;
+   border: 0;
   display: block;
   background: var(--canvas);
   border-radius: 0px;
