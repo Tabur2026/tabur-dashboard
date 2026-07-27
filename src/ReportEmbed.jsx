@@ -48,3 +48,45 @@ export default function ReportEmbed({ pageName }) {
         tokenType: models.TokenType.Aad, // توكن مستخدم Entra — user owns data
         ...(pageName ? { pageName } : {}),
         settings: {
+          panes: {
+            nav: { visible: false },
+            pageNavigation: { visible: false }, // يخفي شريط الصفحات (التابات) تحت
+            filters: { visible: false },
+          },
+          layoutType: models.LayoutType.Custom,
+          customLayout: {
+            displayOption: models.DisplayOption.FitToPage,
+          },
+          background: models.BackgroundType.Transparent,
+        },
+      });
+
+      // تأكيد الانتقال للصفحة المطلوبة بعد اكتمال التحميل
+      if (pageName) {
+        report.on("loaded", async () => {
+          try {
+            await report.setPage(pageName);
+          } catch (e) {
+            console.warn("تعذّر ضبط الصفحة:", e);
+          }
+        });
+      }
+    }
+
+    embed();
+
+    return () => {
+      cancelled = true;
+      const container = containerRef.current;
+      if (container) {
+        try {
+          const existing = powerbi.get(container);
+          if (existing) existing.off("loaded");
+        } catch { /* تجاهل */ }
+        powerbi.reset(container);
+      }
+    };
+  }, [instance, accounts, pageName]);
+
+  return <div ref={containerRef} className="report-frame" />;
+}
