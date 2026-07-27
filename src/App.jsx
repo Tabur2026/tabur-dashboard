@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Routes, Route, Navigate, NavLink } from "react-router-dom";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "./authConfig";
+import ReportEmbed from "./ReportEmbed";
 import "./App.css";
 
 import {
@@ -421,36 +422,47 @@ function PortalLayout({ pagePath }) {
     return () => document.removeEventListener("mousedown", onClick);
   }, []);
 
-  // جلب وقت آخر تحديث من Power BI REST API
+  // جلب وقت آخر تحديث ناجح من Power BI REST API
+  // يعمل عند فتح الصفحة، وعند الضغط على زر التحديث (nonce)
   useEffect(() => {
+    let cancelled = false;
+
     async function fetchLastRefresh() {
       try {
         if (!accounts[0]) return;
 
-        // نحاول جلب التوكن بصمت، وإن فشل نطلب موافقة تفاعلية (مرة واحدة)
-        let token;
+        // نجلب التوكن بصمت، وإن فشل نطلب موافقة تفاعلية (مرة واحدة)
         const request = {
           scopes: ["https://analysis.windows.net/powerbi/api/Dataset.Read.All"],
           account: accounts[0],
         };
+        let token;
         try {
           token = await instance.acquireTokenSilent(request);
         } catch {
           token = await instance.acquireTokenPopup(request);
         }
+        if (cancelled) return;
 
+        // نجلب آخر عدّة عمليات تحديث ونختار آخر عملية ناجحة فعلاً
         const res = await fetch(
-          `https://api.powerbi.com/v1.0/myorg/groups/${POWERBI_GROUP_ID}/datasets/${POWERBI_DATASET_ID}/refreshes?$top=1`,
+          `https://api.powerbi.com/v1.0/myorg/groups/${POWERBI_GROUP_ID}/datasets/${POWERBI_DATASET_ID}/refreshes?$top=10`,
           { headers: { Authorization: `Bearer ${token.accessToken}` } }
         );
+        if (!res.ok) return;
 
         const json = await res.json();
-        const last = json.value?.[0];
-        if (!last?.endTime) return;
+        const history = json.value || [];
 
-        // تحويل من UTC إلى توقيت السعودية (UTC+3)
-          const ksa = new Date(last.endTime);
-           const text = ksa.toLocaleString("en-GB", {
+        // آخر عملية مكتملة (Completed) ولها وقت انتهاء
+        const lastOk = history.find(
+          (r) => r.status === "Completed" && r.endTime
+        );
+        if (cancelled || !lastOk) return;
+
+        // تنسيق بتوقيت السعودية صراحةً (مستقل عن جهاز المستخدم)
+        const text = new Date(lastOk.endTime).toLocaleString("en-GB", {
+          timeZone: "Asia/Riyadh",
           day: "2-digit",
           month: "2-digit",
           year: "numeric",
@@ -466,7 +478,10 @@ function PortalLayout({ pagePath }) {
     }
 
     fetchLastRefresh();
-  }, [instance, accounts]);
+    return () => {
+      cancelled = true;
+    };
+  }, [instance, accounts, nonce]);
 
   const userName = accounts[0]?.name || "مستخدم طابور";
 
@@ -495,15 +510,6 @@ function PortalLayout({ pagePath }) {
   const currentPage = pageTitles[pagePath] || pageTitles["/dashboard"];
   const sectionId = reportSections[pagePath] || reportSections["/dashboard"];
   const activeGroup = findGroupTitle(pagePath);
-
-  const powerBiUrl =
-    `https://app.powerbi.com/reportEmbed?reportId=63993055-b8ca-4fa3-b07c-2a359e95abaa` +
-    `&autoAuth=true` +
-    `&ctid=ab79833e-417a-460e-9da3-37a526b866f1` +
-    `&navContentPaneEnabled=false` +
-    `&filterPaneEnabled=false` +
-    `&pageView=fitToPage` +
-    `&pageName=${sectionId}`;
 
   const refresh = () => {
     setSpin(true);
@@ -648,13 +654,8 @@ function PortalLayout({ pagePath }) {
         </header>
 
         <section className="report">
-          <iframe
-            key={`${pagePath}-${nonce}`}
-            title={currentPage.title}
-            src={powerBiUrl}
-            className="report-frame"
-            allowFullScreen
-          />
+          {/* تضمين التقرير عبر توكن المستخدم من MSAL — بدون شاشة تسجيل دخول */}
+          <ReportEmbed key={`${pagePath}-${nonce}`} pageName={sectionId} />
         </section>
       </main>
     </div>
