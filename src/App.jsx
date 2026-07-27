@@ -654,7 +654,6 @@ function PortalLayout({ pagePath }) {
         </header>
 
         <section className="report">
-          {/* تضمين التقرير عبر توكن المستخدم من MSAL — بدون شاشة تسجيل دخول */}
           <ReportEmbed key={`${pagePath}-${nonce}`} pageName={sectionId} />
         </section>
       </main>
