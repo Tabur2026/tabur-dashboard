@@ -491,7 +491,7 @@ body {
   box-shadow: none;
   background-color: var(--canvas);
 }
-
+.report iframe, .report-frame iframe { border: 0 !important; }
 /* ملء الشاشة */
 .shell.is-expanded .rail { display: none; }
 .shell.is-expanded .work { padding: 0; gap: 0;  }
