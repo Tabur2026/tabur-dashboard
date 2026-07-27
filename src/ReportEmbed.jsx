@@ -16,13 +16,6 @@ const GROUP_ID = "6bcc7dd2-30e5-4078-a153-d73ee1aee36f";
 // صلاحية التضمين (delegated) — لازم تكون مضافة على تطبيق Azure
 const PBI_SCOPE = "https://analysis.windows.net/powerbi/api/Report.Read.All";
 
-/**
- * يعرض تقرير Power BI باستخدام توكن المستخدم من MSAL مباشرةً.
- * لا يعتمد على جلسة المتصفح ولا على كوكيز الطرف الثالث،
- * لذلك لا تظهر شاشة "تسجيل الدخول" داخل الـ iframe.
- *
- * pageName: معرّف صفحة التقرير (نفس قيم reportSections).
- */
 export default function ReportEmbed({ pageName }) {
   const { instance, accounts } = useMsal();
   const containerRef = useRef(null);
@@ -47,7 +40,7 @@ export default function ReportEmbed({ pageName }) {
       // ننظّف أي تضمين سابق قبل إعادة التضمين
       powerbi.reset(container);
 
-      powerbi.embed(container, {
+      const report = powerbi.embed(container, {
         type: "report",
         id: REPORT_ID,
         embedUrl: `https://app.powerbi.com/reportEmbed?reportId=${REPORT_ID}&groupId=${GROUP_ID}`,
@@ -55,26 +48,3 @@ export default function ReportEmbed({ pageName }) {
         tokenType: models.TokenType.Aad, // توكن مستخدم Entra — user owns data
         ...(pageName ? { pageName } : {}),
         settings: {
-          panes: {
-            nav: { visible: false },
-            filters: { visible: false },
-          },
-          layoutType: models.LayoutType.Custom,
-          customLayout: {
-            displayOption: models.DisplayOption.FitToPage,
-          },
-          background: models.BackgroundType.Transparent,
-        },
-      });
-    }
-
-    embed();
-
-    return () => {
-      cancelled = true;
-      if (containerRef.current) powerbi.reset(containerRef.current);
-    };
-  }, [instance, accounts, pageName]);
-
-  return <div ref={containerRef} className="report-frame" />;
-}
