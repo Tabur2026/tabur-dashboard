@@ -277,6 +277,7 @@ body {
   gap: 18px;
   flex-wrap: wrap;
   padding:10px;
+  border-bottom: none; box-shadow: none;
 }
 .work-head-start { display: flex; align-items: flex-start; gap: 14px; min-width: 0; }
 
