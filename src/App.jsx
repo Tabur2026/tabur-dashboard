@@ -300,7 +300,7 @@ const reportSections = {
   "/marketing": "52aadd0237e569b006aa",
   "/franchise": "0cd007a5f80637a22be2",
   "/franchise-compliance": "93f9ca943d246723deb2",
-  "/franchise-payments": "7858c1fe7d2c37adb721",
+  "/franchise-payments": "6ab321362024cbd77e10",
   "/lab": "a9e228f6ed216e03cb4d",
   "/lab-details": "17008c6744d05798cd94",
   "/marketing-plan":"987e8acc33788e40b343",
