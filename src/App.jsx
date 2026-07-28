@@ -140,6 +140,10 @@ const pageTitles = {
     title: "فواتير المنح التجاري",
     subtitle: "متابعة سداد الرسوم والدفعات المستحقة لعقود الامتياز التجاري",
   },
+    "/franchise-dpayments": {
+    title: "كشف حساب الممنوح ",
+    subtitle: "متابعة سداد الرسوم والدفعات المستحقة لعقود الامتياز التجاري",
+  },
   "/lab": {
     title: "لوحة معلومات المعمل المركزي",
     subtitle: "عرض شامل لمبيعات الفروع والأصناف وتحليل الأداء لدعم اتخاذ القرار",
@@ -205,13 +209,14 @@ const menuGroups = [
     ],
   },
 
-  {
+  {  
     title: "إدارة الامتياز التجاري",
     icon: <Handshake size={19} />,
     pages: [
       { title: "لوحة الامتياز", path: "/franchise", icon: <Handshake size={16} /> },
       { title: "سجل الممنوحين", path: "/franchise-compliance", icon: <ClipboardCheck size={16} /> },
       { title: "فواتير المنح التجاري", path: "/franchise-payments", icon: <Receipt size={16} /> },
+      { title: "كشف حساب الممنوحين", path: "/franchise-dpayments", icon: <Receipt size={16} /> },
     ],
   },
 
@@ -243,7 +248,7 @@ const userPermissions = {
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
     "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
     "/marketing", "/marketing-plan", "/marketing-budget", "/franchise", "/franchise-compliance", "/franchise-payments",
-    "/lab", "/lab-details",
+    "/lab", "/lab-details","/franchise-dpayments",
   ],
   "abdullah@tabur.sa": [
     "/dashboard", "/meeting",
@@ -252,7 +257,7 @@ const userPermissions = {
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
     "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
     "/marketing", "/marketing-plan", "/marketing-budget","/franchise", "/franchise-compliance", "/franchise-payments",
-    "/lab", "/lab-details",
+    "/lab", "/lab-details","/franchise-dpayments",
   ],
   "finance@tabur.sa": [
     "/dashboard", "/meeting",
@@ -274,7 +279,7 @@ const userPermissions = {
   "marketing@tabur.sa": ["/dashboard", "/marketing", "/marketing-plan", "/marketing-budget" ],
   "franchise@tabur.sa": [
     "/dashboard", "/meeting",
-    "/franchise", "/franchise-compliance", "/franchise-payments",
+    "/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments",
   ],
 };
 
@@ -301,6 +306,7 @@ const reportSections = {
   "/franchise": "0cd007a5f80637a22be2",
   "/franchise-compliance": "93f9ca943d246723deb2",
   "/franchise-payments": "6ab321362024cbd77e10",
+  "/franchise-dpayments":"19f46731208546d8b798",
   "/lab": "a9e228f6ed216e03cb4d",
   "/lab-details": "17008c6744d05798cd94",
   "/marketing-plan":"987e8acc33788e40b343",
