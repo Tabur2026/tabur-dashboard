@@ -247,8 +247,8 @@ const userPermissions = {
     "/operations", "/orders-details", "/apps-details", "/workforce-productivity",
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
     "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
-    "/marketing", "/marketing-plan", "/marketing-budget", "/franchise", "/franchise-compliance", "/franchise-payments",
-    "/lab", "/lab-details","/franchise-dpayments",
+    "/marketing", "/marketing-plan", "/marketing-budget", "/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments"
+    "/lab", "/lab-details",
   ],
   "abdullah@tabur.sa": [
     "/dashboard", "/meeting",
@@ -256,8 +256,8 @@ const userPermissions = {
     "/operations", "/orders-details", "/apps-details", "/workforce-productivity",
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
     "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
-    "/marketing", "/marketing-plan", "/marketing-budget","/franchise", "/franchise-compliance", "/franchise-payments",
-    "/lab", "/lab-details","/franchise-dpayments",
+    "/marketing", "/marketing-plan", "/marketing-budget","/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments"
+    "/lab", "/lab-details",
   ],
   "finance@tabur.sa": [
     "/dashboard", "/meeting",
@@ -306,7 +306,7 @@ const reportSections = {
   "/franchise": "0cd007a5f80637a22be2",
   "/franchise-compliance": "93f9ca943d246723deb2",
   "/franchise-payments": "6ab321362024cbd77e10",
-  "/franchise-dpayments":"19f46731208546d8b798",
+  "/franchise-dpayments" : "19f46731208546d8b798",
   "/lab": "a9e228f6ed216e03cb4d",
   "/lab-details": "17008c6744d05798cd94",
   "/marketing-plan":"987e8acc33788e40b343",
