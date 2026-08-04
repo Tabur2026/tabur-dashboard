@@ -124,7 +124,7 @@ const pageTitles = {
     title: "الخطة التسويقية والإنجاز",
     subtitle: "متابعة الأنشطة التسويقية المخططة شهرياً وسنوياً ونسب الإنجاز مقابل المستهدف",
   },
-  "/marketing-budget": {
+  "/mk-budget": {
     title: "الميزانية التسويقية",
     subtitle: "متابعة الميزانية المعتمدة مقابل المصروف الفعلي والانحرافات حسب البند والقناة",
   },
@@ -226,7 +226,7 @@ const menuGroups = [
     pages: [
       { title: "لوحة التسويق", path: "/marketing", icon: <Megaphone size={16} /> },
        { title: "االخطة التسويقية والإنجاز", path: "/marketing-plan", icon: <Megaphone size={16} /> },
-       { title: "الميزانية التسويقية", path: "/marketing-budget", icon: <Megaphone size={16} /> },
+       { title: "الميزانية التسويقية", path: "/mk-budget", icon: <Megaphone size={16} /> },
     ],
   },
 
@@ -247,7 +247,7 @@ const userPermissions = {
     "/operations", "/orders-details", "/apps-details", "/workforce-productivity",
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
     "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
-    "/marketing", "/marketing-plan", "/marketing-budget", "/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments",
+    "/marketing", "/marketing-plan", "/mk-budget", "/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments",
     "/lab", "/lab-details",
   ],
   "abdullah@tabur.sa": [
@@ -256,7 +256,7 @@ const userPermissions = {
     "/operations", "/orders-details", "/apps-details", "/workforce-productivity",
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
     "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
-    "/marketing", "/marketing-plan", "/marketing-budget","/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments",
+    "/marketing", "/marketing-plan", "/mk-budget","/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments",
     "/lab", "/lab-details",
   ],
   "finance@tabur.sa": [
@@ -276,7 +276,7 @@ const userPermissions = {
     "/dashboard", "/meeting",
     "/hr", "/hr-workforce", "/hr-compliance", "/rents-contracts",
   ],
-  "marketing@tabur.sa": ["/dashboard", "/meeting", "/marketing", "/marketing-plan", "/marketing-budget" ],
+  "marketing@tabur.sa": ["/dashboard", "/meeting", "/marketing", "/marketing-plan", "/mk-budget" ],
   "franchise@tabur.sa": [
     "/dashboard", "/meeting",
     "/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments",
@@ -304,7 +304,7 @@ const reportSections = {
   "/hr-compliance": "0a59daa9acfe550f378b",
   "/marketing": "52aadd0237e569b006aa",
   "/marketing-plan":"987e8acc33788e40b343",
-  "/marketing-budget": "b8a620672c8d5a03b8a7",
+  "/mk-budget": "b8a620672c8d5a03b8a7",
   "/franchise": "0cd007a5f80637a22be2",
   "/franchise-compliance": "93f9ca943d246723deb2",
   "/franchise-payments": "6ab321362024cbd77e10",
