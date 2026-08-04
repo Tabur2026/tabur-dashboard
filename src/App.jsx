@@ -310,7 +310,7 @@ const reportSections = {
   "/lab": "a9e228f6ed216e03cb4d",
   "/lab-details": "17008c6744d05798cd94",
   "/marketing-plan":"987e8acc33788e40b343",
-  "/marketing-budget": "52aadd0237e569b006aa",
+  "/marketing-budget": "b8a620672c8d5a03b8a7",
 };
 
 // ====== معرّفات Power BI ======
