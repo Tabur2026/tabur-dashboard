@@ -229,9 +229,9 @@ const menuGroups = [
     icon: <Megaphone size={19} />,
     pages: [
       { title: "لوحة التسويق", path: "/marketing", icon: <Megaphone size={16} /> },
-       { title: "االخطة التسويقية والإنجاز", path: "/marketing-plan", icon: <Megaphone size={16} /> },
+       { title: "الخطة التسويقية والإنجاز", path: "/marketing-plan", icon: <Megaphone size={16} /> },
        { title: "الميزانية التسويقية", path: "/mk-budget", icon: <Megaphone size={16} /> }, 
-       { title: "الميزانية التسويقية", path: "/mk-monthly_budget", icon: <Megaphone size={16} /> },
+       { title: " المتابعة الشهرية ", path: "/mk-monthly_budget", icon: <Megaphone size={16} /> },
 
     ],
   },
