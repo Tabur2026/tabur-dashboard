@@ -276,7 +276,7 @@ const userPermissions = {
     "/dashboard", "/meeting",
     "/hr", "/hr-workforce", "/hr-compliance", "/rents-contracts",
   ],
-  "marketing@tabur.sa": ["/dashboard", "/marketing", "/marketing-plan", "/marketing-budget" ],
+  "marketing@tabur.sa": ["/dashboard", "/meeting", "/marketing", "/marketing-plan", "/marketing-budget" ],
   "franchise@tabur.sa": [
     "/dashboard", "/meeting",
     "/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments",
@@ -303,14 +303,14 @@ const reportSections = {
   "/hr-workforce": "c0864ba9da2756782168",
   "/hr-compliance": "0a59daa9acfe550f378b",
   "/marketing": "52aadd0237e569b006aa",
+  "/marketing-plan":"987e8acc33788e40b343",
+  "/marketing-budget": "b8a620672c8d5a03b8a7",
   "/franchise": "0cd007a5f80637a22be2",
   "/franchise-compliance": "93f9ca943d246723deb2",
   "/franchise-payments": "6ab321362024cbd77e10",
   "/franchise-dpayments" : "19f46731208546d8b798",
   "/lab": "a9e228f6ed216e03cb4d",
   "/lab-details": "17008c6744d05798cd94",
-  "/marketing-plan":"987e8acc33788e40b343",
-  "/marketing-budget": "b8a620672c8d5a03b8a7",
 };
 
 // ====== معرّفات Power BI ======
