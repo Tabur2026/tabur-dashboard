@@ -247,7 +247,7 @@ const userPermissions = {
     "/operations", "/orders-details", "/apps-details", "/workforce-productivity",
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
     "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
-    "/marketing", "/marketing-plan", "/marketing-budget", "/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments"
+    "/marketing", "/marketing-plan", "/marketing-budget", "/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments",
     "/lab", "/lab-details",
   ],
   "abdullah@tabur.sa": [
@@ -256,7 +256,7 @@ const userPermissions = {
     "/operations", "/orders-details", "/apps-details", "/workforce-productivity",
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
     "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
-    "/marketing", "/marketing-plan", "/marketing-budget","/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments"
+    "/marketing", "/marketing-plan", "/marketing-budget","/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments",
     "/lab", "/lab-details",
   ],
   "finance@tabur.sa": [
