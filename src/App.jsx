@@ -152,6 +152,10 @@ const pageTitles = {
     title: "كشف حساب الممنوح ",
     subtitle: "متابعة سداد الرسوم والدفعات المستحقة لعقود الامتياز التجاري",
   },
+  "/cheque": {
+    title: "سند المطالبة",
+    subtitle: "مبلغ مطالبة الممنوح",
+  },
   "/lab": {
     title: "لوحة معلومات المعمل المركزي",
     subtitle: "عرض شامل لمبيعات الفروع والأصناف وتحليل الأداء لدعم اتخاذ القرار",
@@ -226,6 +230,7 @@ const menuGroups = [
       { title: "سجل الممنوحين", path: "/franchise-compliance", icon: <ClipboardCheck size={16} /> },
       { title: "فواتير المنح التجاري", path: "/franchise-payments", icon: <Receipt size={16} /> },
       { title: "كشف حساب الممنوحين", path: "/franchise-dpayments", icon: <Receipt size={16} /> },
+        { title: "سند مطالبة", path:  "/cheque", icon: <Receipt size={16} /> },
     ],
   },
 
@@ -259,7 +264,7 @@ const userPermissions = {
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
     "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
     "/marketing", "/marketing-plan", "/mk-budget", "/mk-monthly_budget","/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments",
-    "/lab", "/lab-details",
+    "/lab", "/lab-details", "/cheque",
   ],
   "abdullah@tabur.sa": [
     "/dashboard", "/meeting",
@@ -268,7 +273,7 @@ const userPermissions = {
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
     "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
     "/marketing", "/marketing-plan", "/mk-budget", "/mk-monthly_budget","/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments",
-    "/lab", "/lab-details",
+    "/lab", "/lab-details", "/cheque",
   ],
   "finance@tabur.sa": [
     "/dashboard", "/meeting",
@@ -290,7 +295,7 @@ const userPermissions = {
   "marketing@tabur.sa": ["/dashboard", "/meeting", "/marketing", "/marketing-plan", "/mk-budget" , "/mk-monthly_budget", ],
   "franchise@tabur.sa": [
     "/dashboard", "/meeting",
-    "/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments",
+    "/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments","/cheque",
   ],
 };
 
@@ -322,6 +327,7 @@ const reportSections = {
   "/franchise-compliance": "93f9ca943d246723deb2",
   "/franchise-payments": "6ab321362024cbd77e10",
   "/franchise-dpayments" : "19f46731208546d8b798",
+  "/cheque":"4eed24906408c10eab55",
   "/lab": "a9e228f6ed216e03cb4d",
   "/lab-details": "17008c6744d05798cd94",
 };
