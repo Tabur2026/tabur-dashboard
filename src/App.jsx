@@ -230,7 +230,6 @@ const menuGroups = [
       { title: "سجل الممنوحين", path: "/franchise-compliance", icon: <ClipboardCheck size={16} /> },
       { title: "فواتير المنح التجاري", path: "/franchise-payments", icon: <Receipt size={16} /> },
       { title: "كشف حساب الممنوحين", path: "/franchise-dpayments", icon: <Receipt size={16} /> },
-        { title: "سند مطالبة", path:  "/cheque", icon: <Receipt size={16} /> },
     ],
   },
 
