@@ -75,6 +75,10 @@ const pageTitles = {
     title: "تفاصيل التطبيقات",
     subtitle: "متابعة أداء تطبيقات التوصيل وتحليل المبيعات حسب كل منصة",
   },
+    "/daily_operations": {
+    title: "لوحة أداء التشغيل اليومي",
+    subtitle: "متابعة يومية لأداء الفروع والعمليات ",
+  },
   "/workforce-productivity": {
     title: "إنتاجية القوى العاملة",
     subtitle:
@@ -185,7 +189,8 @@ const menuGroups = [
     pages: [
       { title: "لوحة التشغيل", path: "/operations", icon: <Settings size={16} /> },
       { title: "تفاصيل الطلبات", path: "/orders-details", icon: <ShoppingCart size={16} /> },
-      { title: "تفاصيل التطبيقات", path: "/apps-details", icon: <Smartphone size={16} /> },
+      { title: "تفاصيل التطبيقات", path: "/apps-details", icon: <Smartphone size={16} /> }, 
+       { title: "الأداء اليومي", path: "/daily_operations", icon: <Settings size={16} /> },
       { title: "إنتاجية القوى العاملة", path: "/workforce-productivity", icon: <Briefcase size={16} /> },
       { title: "تقييمات جوجل ماب", path: "/google-rating", icon: <MapPinned size={16} /> },
       { title: "شكاوى العملاء", path: "/operations-complaints", icon: <MessageSquareWarning size={16} /> },
@@ -250,7 +255,7 @@ const userPermissions = {
   "coordinated@tabur.sa": [
     "/dashboard", "/meeting",
     "/finance", "/finance-kpis", "/finance-cash", "/rent-contracts",
-    "/operations", "/orders-details", "/apps-details", "/workforce-productivity",
+    "/operations", "/orders-details", "/apps-details",  "/daily_operations","/workforce-productivity",
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
     "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
     "/marketing", "/marketing-plan", "/mk-budget", "/mk-monthly_budget","/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments",
@@ -259,7 +264,7 @@ const userPermissions = {
   "abdullah@tabur.sa": [
     "/dashboard", "/meeting",
     "/finance", "/finance-kpis", "/finance-cash", "/rent-contracts",
-    "/operations", "/orders-details", "/apps-details", "/workforce-productivity",
+    "/operations", "/orders-details", "/apps-details", "/daily_operations", "/workforce-productivity",
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
     "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
     "/marketing", "/marketing-plan", "/mk-budget", "/mk-monthly_budget","/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments",
@@ -275,7 +280,7 @@ const userPermissions = {
   ],
   "khaled@tabur.sa": [
     "/dashboard", "/meeting",
-    "/operations", "/orders-details", "/apps-details",
+    "/operations", "/orders-details", "/apps-details", "/daily_operations",
     "/workforce-productivity", "/google-rating", "/operations-complaints",
   ],
   "hr@tabur.sa": [
@@ -301,6 +306,7 @@ const reportSections = {
   "/apps-details": "957703b4c99da1359cdf",
   "/workforce-productivity": "41adb7b772af79309837",
   "/google-rating": "17eb8cc1e4276dc5a1e4",
+   "/daily_operations": "1db5be54953e7ae50a32",
   "/operations-complaints": "fc185d48dcafe56011c9",
   "/quality": "af65b321dcbe2c7b97b4",
   "/quality-score": "60cfe719a0a02a551b5b",
