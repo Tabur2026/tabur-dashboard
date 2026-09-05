@@ -306,7 +306,7 @@ const userPermissions = {
 };
 
 const reportSections = {
-  "/dashboard": "b9e2e9efdf1360d7d4de",
+  "/dashboards": "b9e2e9efdf1360d7d4de",
   "/tasks": "4e5c3fa6c4754ee7def8",
   "/meeting": "aeafd3221d78f0bb37eb",
   "/finance": "c38620a696b6fc62d0f5",
