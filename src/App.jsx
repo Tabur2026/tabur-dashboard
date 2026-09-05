@@ -41,6 +41,10 @@ const pageTitles = {
     title: "اللوحة التنفيذية",
     subtitle: "نظرة شاملة على مؤشرات الأداء الرئيسية",
   },
+    "/tasks": {
+    title: "لوحة أداء المهام ",
+    subtitle: "نظرة شاملة على أداء الادارات ومؤشرات إنجاز المهام ",
+  },
   "/meeting": {
     title: "متابعة الاجتماعات الدورية ",
     subtitle: "نلوحة مؤشرات التزام الفريق الاداري بالية الاجتماعات الدوية ",
@@ -172,6 +176,13 @@ const menuGroups = [
     icon: <Home size={19} />,
     pages: [
       { title: "لوحة مهام الفريق الإداري", path: "/dashboard", icon: <ListTodo size={16} /> },
+    ],
+  },
+    {
+    title: "مهام الفريق الإداري",
+    icon: <Home size={19} />,
+    pages: [
+      { title: "لوحة مهام الفريق الإداري", path: "/tasks", icon: <ListTodo size={16} /> },
       { title: "مؤشرات الاجتماعات الدورية", path: "/meeting", icon: <CalendarCheck size={16} /> },
     ],
   },
@@ -257,7 +268,7 @@ const menuGroups = [
 
 const userPermissions = {
   "coordinated@tabur.sa": [
-    "/dashboard", "/meeting",
+    "/dashboard", "/tasks","/meeting",
     "/finance", "/finance-kpis", "/finance-cash", "/rent-contracts",
     "/operations", "/orders-details", "/apps-details",  "/daily_operations","/workforce-productivity",
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
@@ -266,7 +277,7 @@ const userPermissions = {
     "/lab", "/lab-details", "/cheque",
   ],
   "abdullah@tabur.sa": [
-    "/dashboard", "/meeting",
+    "/dashboard", "/meeting","/tasks"
     "/finance", "/finance-kpis", "/finance-cash", "/rent-contracts",
     "/operations", "/orders-details", "/apps-details", "/daily_operations", "/workforce-productivity",
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
@@ -275,31 +286,32 @@ const userPermissions = {
     "/lab", "/lab-details", "/cheque",
   ],
   "finance@tabur.sa": [
-    "/dashboard", "/meeting",
+   "/tasks", "/meeting",
     "/finance", "/finance-kpis", "/finance-cash", "/rent-contracts",
   ],
   "quality@tabur.sa": [
-    "/dashboard", "/meeting",
+   "/tasks", "/meeting",
     "/quality", "/quality-score", "/quality-notes", "/customer-complaints",
   ],
   "khaled@tabur.sa": [
-    "/dashboard", "/meeting",
+   "/tasks", "/meeting",
     "/operations", "/orders-details", "/apps-details", "/daily_operations",
     "/workforce-productivity", "/google-rating", "/operations-complaints",
   ],
   "hr@tabur.sa": [
-    "/dashboard", "/meeting",
+    "/tasks", "/meeting",
     "/hr", "/hr-workforce", "/hr-compliance", "/rents-contracts",
   ],
-  "marketing@tabur.sa": ["/dashboard", "/meeting", "/marketing", "/marketing-plan", "/mk-budget" , "/mk-monthly_budget", ],
+  "marketing@tabur.sa": ["/tasks", "/meeting", "/marketing", "/marketing-plan", "/mk-budget" , "/mk-monthly_budget", ],
   "franchise@tabur.sa": [
-    "/dashboard", "/meeting",
+    "/tasks", "/meeting",
     "/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments","/cheque",
   ],
 };
 
 const reportSections = {
-  "/dashboard": "4e5c3fa6c4754ee7def8",
+  "/dashboard": "b9e2e9efdf1360d7d4de",
+  "/tasks": "4e5c3fa6c4754ee7def8",
   "/meeting": "aeafd3221d78f0bb37eb",
   "/finance": "c38620a696b6fc62d0f5",
   "/finance-kpis": "744ea543b00dc4c146f7",
