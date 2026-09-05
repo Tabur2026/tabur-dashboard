@@ -491,7 +491,11 @@ body {
   box-shadow: none;
   background-color: var(--canvas);
 }
-.report iframe, .report-frame iframe { border: 0 !important; }
+.report iframe,
+.report-frame iframe {
+  border: 0 !important;
+  overflow: hidden !important; /* يمنع سكرول Power BI الداخلي من الظهور */
+}
 /* ملء الشاشة */
 .shell.is-expanded .rail { display: none; }
 .shell.is-expanded .work { padding: 0; gap: 0;  }
