@@ -262,18 +262,13 @@ body {
   flex: 1;
   min-width: 0;
   height: 100vh;
-  overflow-y: auto;   /* يظهر سكرول بس لو المحتوى فعلاً أطول من الشاشة */
-  overflow-x: hidden;
+  overflow: hidden;
   padding: 24px 10px 10px 5px;
   display: flex;
   flex-direction: column;
   background-color: var(--canvas);
   gap: 10px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--line) transparent;
 }
-.work::-webkit-scrollbar { width: 6px; }
-.work::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
 
 .work-head {
   display: flex;
@@ -485,12 +480,13 @@ body {
   display: block;
   background: var(--canvas);
   border-radius: 0;
+  overflow: hidden;
   margin: 0;          /* كان: 0 -10px -10px -5px */
 }
 .report-frame {
   flex: 1;
   width: 100%;
-  min-height: 100%;  /* يسمح للتقرير يكبر لأكثر من الحاوية عند الحاجة، و.work يتكفل بالسكرول */
+  height: 100%;
    border: none;
   box-shadow: none;
   background-color: var(--canvas);
@@ -498,7 +494,6 @@ body {
 .report iframe,
 .report-frame iframe {
   border: 0 !important;
-  overflow: hidden !important; /* يمنع سكرول Power BI الداخلي من الظهور */
 }
 /* ملء الشاشة */
 .shell.is-expanded .rail { display: none; }
