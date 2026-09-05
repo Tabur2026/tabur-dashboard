@@ -171,17 +171,11 @@ const pageTitles = {
 };
 
 const menuGroups = [
-  {
+    {
     title: "الرئيسية",
     icon: <Home size={19} />,
     pages: [
       { title: "الرئيسية", path: "/dashboard", icon: <ListTodo size={16} /> },
-    ],
-  },
-    {
-    title: "مهام الفريق الإداري",
-    icon: <Home size={19} />,
-    pages: [
       { title: "لوحة مهام الفريق الإداري", path: "/tasks", icon: <ListTodo size={16} /> },
       { title: "مؤشرات الاجتماعات الدورية", path: "/meeting", icon: <CalendarCheck size={16} /> },
     ],
