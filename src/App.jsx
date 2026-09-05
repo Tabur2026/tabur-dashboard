@@ -178,6 +178,8 @@ const menuGroups = [
       { title: "الرئيسية", path: "/dashboard", icon: <ListTodo size={16} /> },
       { title: "لوحة مهام الفريق الإداري", path: "/tasks", icon: <ListTodo size={16} /> },
       { title: "مؤشرات الاجتماعات الدورية", path: "/meeting", icon: <CalendarCheck size={16} /> },
+            { title: "مؤشرات المالية", path: "/finance-kpis", icon: <BarChart3 size={16} /> },
+
     ],
   },
 
