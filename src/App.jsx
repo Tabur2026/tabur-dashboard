@@ -175,7 +175,7 @@ const menuGroups = [
     title: "الرئيسية",
     icon: <Home size={19} />,
     pages: [
-      { title: "لوحة مهام الفريق الإداري", path: "/dashboard", icon: <ListTodo size={16} /> },
+      { title: "الرئيسية", path: "/dashboard", icon: <ListTodo size={16} /> },
     ],
   },
     {
