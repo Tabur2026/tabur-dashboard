@@ -2,14 +2,18 @@ import { useEffect, useRef } from "react";
 import { useMsal } from "@azure/msal-react";
 import { models, service, factories } from "powerbi-client";
 
+// خدمة Power BI (تُنشأ مرة واحدة)
 const powerbi = new service.Service(
   factories.hpmFactory,
   factories.wpmpFactory,
   factories.routerFactory
 );
 
+// نفس المعرّفات الموجودة في App.jsx
 const REPORT_ID = "63993055-b8ca-4fa3-b07c-2a359e95abaa";
 const GROUP_ID = "6bcc7dd2-30e5-4078-a153-d73ee1aee36f";
+
+// صلاحية التضمين (delegated) — لازم تكون مضافة على تطبيق Azure
 const PBI_SCOPE = "https://analysis.windows.net/powerbi/api/Report.Read.All";
 
 export default function ReportEmbed({ pageName }) {
@@ -24,6 +28,7 @@ export default function ReportEmbed({ pageName }) {
       const container = containerRef.current;
       if (!container || !accounts[0]) return;
 
+      // نجلب التوكن بصمت، وإن فشل نطلب موافقة تفاعلية مرة واحدة
       const request = { scopes: [PBI_SCOPE], account: accounts[0] };
       let token;
       try {
@@ -33,6 +38,7 @@ export default function ReportEmbed({ pageName }) {
       }
       if (cancelled) return;
 
+      // ننظّف أي تضمين سابق قبل إعادة التضمين
       powerbi.reset(container);
 
       const report = powerbi.embed(container, {
@@ -40,17 +46,17 @@ export default function ReportEmbed({ pageName }) {
         id: REPORT_ID,
         embedUrl: `https://app.powerbi.com/reportEmbed?reportId=${REPORT_ID}&groupId=${GROUP_ID}`,
         accessToken: token.accessToken,
-        tokenType: models.TokenType.Aad,
+        tokenType: models.TokenType.Aad, // توكن مستخدم Entra — user owns data
         ...(pageName ? { pageName } : {}),
         settings: {
           panes: {
             nav: { visible: false },
-            pageNavigation: { visible: false },
+            pageNavigation: { visible: false }, // يخفي شريط الصفحات (التابات) تحت
             filters: { visible: false },
           },
           layoutType: models.LayoutType.Custom,
           customLayout: {
-            displayOption: models.DisplayOption.FitToWidth, // ← بدل FitToPage
+            displayOption: models.DisplayOption.FitToPage, // يحترم حدود الحاوية (طول وعرض) — بدون سكرول
           },
           background: models.BackgroundType.Transparent,
         },
@@ -58,6 +64,7 @@ export default function ReportEmbed({ pageName }) {
 
       reportRef.current = report;
 
+      // تأكيد الانتقال للصفحة المطلوبة بعد اكتمال التحميل
       if (pageName) {
         report.on("loaded", async () => {
           try {
@@ -78,14 +85,16 @@ export default function ReportEmbed({ pageName }) {
         try {
           const existing = powerbi.get(container);
           if (existing) existing.off("loaded");
-        } catch { /* تجاهل */ }
+        } catch {
+          /* تجاهل */
+        }
         powerbi.reset(container);
       }
       reportRef.current = null;
     };
   }, [instance, accounts, pageName]);
 
-  // إعادة الضبط كل ما تغيّر حجم الحاوية (طي/فتح القائمة، ملء الشاشة، تغيير حجم النافذة)
+  // إعادة الضبط كل ما تغيّر حجم الحاوية (طي/فتح القائمة الجانبية، ملء الشاشة، تغيير حجم النافذة)
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -96,7 +105,7 @@ export default function ReportEmbed({ pageName }) {
       report
         .updateSettings({
           layoutType: models.LayoutType.Custom,
-          customLayout: { displayOption: models.DisplayOption.FitToWidth },
+          customLayout: { displayOption: models.DisplayOption.FitToPage },
         })
         .catch(() => {});
     });
