@@ -37,7 +37,7 @@ import {
 } from "lucide-react";
 
 const pageTitles = {
-  "/dashboard": {
+  "/dashboards": {
     title: "اللوحة التنفيذية",
     subtitle: "نظرة شاملة على مؤشرات الأداء الرئيسية",
   },
@@ -175,7 +175,7 @@ const menuGroups = [
     title: "الرئيسية",
     icon: <Home size={19} />,
     pages: [
-      { title: "الرئيسية", path: "/dashboard", icon: <ListTodo size={16} /> },
+      { title: "الرئيسية", path: "/dashboards", icon: <ListTodo size={16} /> },
       { title: "لوحة مهام الفريق الإداري", path: "/tasks", icon: <ListTodo size={16} /> },
       { title: "مؤشرات الاجتماعات الدورية", path: "/meeting", icon: <CalendarCheck size={16} /> },
             { title: "مؤشرات المالية", path: "/finance-kpis", icon: <BarChart3 size={16} /> },
@@ -264,7 +264,7 @@ const menuGroups = [
 
 const userPermissions = {
   "coordinated@tabur.sa": [
-    "/dashboard", "/tasks","/meeting",
+    "/dashboards", "/tasks","/meeting",
     "/finance", "/finance-kpis", "/finance-cash", "/rent-contracts",
     "/operations", "/orders-details", "/apps-details",  "/daily_operations","/workforce-productivity",
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
@@ -273,7 +273,7 @@ const userPermissions = {
     "/lab", "/lab-details", "/cheque",
   ],
   "abdullah@tabur.sa": [
-    "/dashboard", "/meeting","/tasks"
+    "/dashboards", "/meeting","/tasks"
     "/finance", "/finance-kpis", "/finance-cash", "/rent-contracts",
     "/operations", "/orders-details", "/apps-details", "/daily_operations", "/workforce-productivity",
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
