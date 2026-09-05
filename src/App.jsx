@@ -273,7 +273,7 @@ const userPermissions = {
     "/lab", "/lab-details", "/cheque",
   ],
   "abdullah@tabur.sa": [
-    "/dashboards", "/meeting","/tasks"
+    "/dashboards", "/meeting","/tasks",
     "/finance", "/finance-kpis", "/finance-cash", "/rent-contracts",
     "/operations", "/orders-details", "/apps-details", "/daily_operations", "/workforce-productivity",
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
