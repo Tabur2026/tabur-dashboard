@@ -168,6 +168,10 @@ const pageTitles = {
     title: "اللوحة التفصيلية لمبيعات المعمل المركزي",
     subtitle: "عرض تفصيلي لمبيعات الفروع والأصناف وتحليل الأداء لدعم اتخاذ القرار",
   },
+    "/purchasing": {
+   title: "لوحة المشتريات",
+  subtitle: "متابعة المشتريات والموردين وتحليل التكاليف لدعم كفاءة التوريد  ",
+  },
 };
 
 const menuGroups = [
@@ -249,6 +253,13 @@ const menuGroups = [
 
     ],
   },
+  {
+  title: "إدارة المشتريات",
+  icon: <ShoppingCart size={19} />,
+  pages: [
+    { title: "لوحة المشتريات", path: "/purchasing", icon: <ShoppingCart size={16} /> },
+  ],
+},
 
   {
     title: "المعمل المركزي",
@@ -268,7 +279,7 @@ const userPermissions = {
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
     "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
     "/marketing", "/marketing-plan", "/mk-budget", "/mk-monthly_budget","/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments",
-    "/lab", "/lab-details", "/cheque",
+    "/lab", "/lab-details", "/cheque", "/purchasing"
   ],
   "abdullah@tabur.sa": [
     "/dashboards", "/meeting","/tasks",
@@ -277,7 +288,7 @@ const userPermissions = {
     "/google-rating", "/quality", "/quality-score", "/quality-notes",
     "/operations-complaints", "/hr", "/hr-workforce", "/hr-compliance",
     "/marketing", "/marketing-plan", "/mk-budget", "/mk-monthly_budget","/franchise", "/franchise-compliance", "/franchise-payments","/franchise-dpayments",
-    "/lab", "/lab-details", "/cheque",
+    "/lab", "/lab-details", "/cheque", "/purchasing"
   ],
   "finance@tabur.sa": [
    "/tasks", "/meeting",
@@ -335,6 +346,7 @@ const reportSections = {
   "/cheque":"4eed24906408c10eab55",
   "/lab": "a9e228f6ed216e03cb4d",
   "/lab-details": "17008c6744d05798cd94",
+   "/purchasing": "6a1f646617a7651c8327",
 };
 
 // ====== معرّفات Power BI ======
