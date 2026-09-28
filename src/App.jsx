@@ -351,7 +351,7 @@ const reportSections = {
 
 // ====== معرّفات Power BI ======
 const POWERBI_GROUP_ID = "6bcc7dd2-30e5-4078-a153-d73ee1aee36f";   // معرّف الـ Workspace / Group
-const POWERBI_DATASET_ID = "f3f3ba1d-efed-4054-bc33-167a12e56491";   // معرّف الـ Dataset
+const POWERBI_DATASET_ID = "82c6f719-1c4f-401c-b050-05c61b0373e9";   // معرّف الـ Dataset (tabur_demo)
 // ==================================================
 
 /* الإدارة (المجموعة) التي تحتوي المسار الحالي */
