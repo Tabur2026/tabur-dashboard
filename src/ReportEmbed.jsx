@@ -58,7 +58,7 @@ export default function ReportEmbed({ pageName }) {
           customLayout: {
             displayOption: models.DisplayOption.FitToWidth, // يملي العرض دايمًا ويكبر/يصغر مع الشاشة
           },
-          background: models.BackgroundType.Transparent,
+          background: models.BackgroundType.Default, // يُظهر خلفية صفحات التقرير
         },
       });
 
