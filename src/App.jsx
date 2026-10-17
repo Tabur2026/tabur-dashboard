@@ -1,4 +1,4 @@
- import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Routes, Route, Navigate, NavLink } from "react-router-dom";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "./authConfig";
@@ -16,6 +16,7 @@ import {
   Handshake,
   FlaskConical,
   ChevronDown,
+  ChevronLeft,
   BarChart3,
   Landmark,
   ShoppingCart,
@@ -180,7 +181,7 @@ const menuGroups = [
     title: "الرئيسية",
     icon: <Home size={19} />,
     pages: [
-      { title: "الرئيسية", path: "/dashboards", icon: <ListTodo size={16} /> },
+      { title: "اللوحة التنفيذية", path: "/dashboards", icon: <ListTodo size={16} /> },
       { title: "لوحة مهام الفريق الإداري", path: "/tasks", icon: <ListTodo size={16} /> },
       { title: "مؤشرات الاجتماعات الدورية", path: "/meeting", icon: <CalendarCheck size={16} /> },
     ],
@@ -578,6 +579,9 @@ function PortalLayout({ pagePath }) {
   const currentPage = pageTitles[pagePath] || pageTitles["/dashboard"];
   const sectionId = reportSections[pagePath] || reportSections["/dashboard"];
   const activeGroup = findGroupTitle(pagePath);
+  const activePage = menuGroups.flatMap((g) => g.pages).find((p) => p.path === pagePath);
+  const isStale =
+    lastUpdateAt && Date.now() - lastUpdateAt.getTime() > 24 * 3600 * 1000;
 
   const refresh = () => {
     setSpin(true);
@@ -650,8 +654,8 @@ function PortalLayout({ pagePath }) {
 
       {/* ============ مساحة العمل ============ */}
       <main className="work">
-        <header className="work-head">
-          <div className="work-head-start">
+        <header className="topbar">
+          <div className="topbar-start">
             <button
               className="work-burger"
               onClick={() => setDrawer(true)}
@@ -659,70 +663,80 @@ function PortalLayout({ pagePath }) {
             >
               <Menu size={19} />
             </button>
-            <div className="work-titles">
-              <h1 className="work-title">{currentPage.title}</h1>
-              <p className="work-sub">{currentPage.subtitle}</p>
-            </div>
+            <nav className="crumb" aria-label="مسار الصفحة">
+              {activeGroup && activeGroup !== activePage?.title && (
+                <>
+                  <span className="crumb-group">{activeGroup}</span>
+                  <ChevronLeft size={14} className="crumb-sep" />
+                </>
+              )}
+              <span className="crumb-page">{activePage?.title || currentPage.title}</span>
+            </nav>
           </div>
 
-          <div className="work-tools">
-            <div className="tools-row">
-              <button
-                className="tool"
-                onClick={toggleExpand}
-                aria-label={expanded ? "إنهاء ملء الشاشة" : "ملء الشاشة"}
+          <div className="topbar-tools">
+            {lastUpdate && (
+              <span
+                className={`upd-pill${isStale ? " stale" : ""}`}
+                title={isStale ? "البيانات لم تُحدَّث منذ أكثر من يوم" : "البيانات محدّثة"}
               >
-                {expanded ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+                <span className="upd-dot" />
+                آخر تحديث: <bdi>{lastUpdate}</bdi>
+              </span>
+            )}
+
+            <button className="tool" onClick={refresh} aria-label="تحديث التقرير" title="تحديث">
+              <RefreshCw size={16} className={spin ? "spin" : undefined} />
+            </button>
+
+            <button
+              className="tool"
+              onClick={toggleExpand}
+              aria-label={expanded ? "إنهاء ملء الشاشة" : "ملء الشاشة"}
+              title="ملء الشاشة"
+            >
+              {expanded ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+            </button>
+
+            <div className={`user${userOpen ? " open" : ""}`} ref={userRef}>
+              <button
+                type="button"
+                className="user-btn"
+                onClick={() => setUserOpen((v) => !v)}
+                aria-expanded={userOpen}
+              >
+                <span className="user-avatar">{userName.charAt(0)}</span>
+                <span className="user-name">{userName}</span>
+                <ChevronDown size={15} className="user-chev" />
               </button>
 
-              <button className="tool" onClick={refresh} aria-label="تحديث التقرير">
-                <RefreshCw size={16} className={spin ? "spin" : undefined} />
-              </button>
-
-              <div className={`user${userOpen ? " open" : ""}`} ref={userRef}>
-                <button
-                  type="button"
-                  className="user-btn"
-                  onClick={() => setUserOpen((v) => !v)}
-                  aria-expanded={userOpen}
-                >
-                  <span className="user-avatar">{userName.charAt(0)}</span>
-                  <span className="user-name">{userName}</span>
-                  <ChevronDown size={15} className="user-chev" />
-                </button>
-
-                <div className="user-menu">
-                  <div className="user-menu-head">
-                    <span className="user-menu-avatar">{userName.charAt(0)}</span>
-                    <div className="user-menu-meta">
-                      <strong>{userName}</strong>
-                      <span>{userEmail}</span>
-                    </div>
+              <div className="user-menu">
+                <div className="user-menu-head">
+                  <span className="user-menu-avatar">{userName.charAt(0)}</span>
+                  <div className="user-menu-meta">
+                    <strong>{userName}</strong>
+                    <span>{userEmail}</span>
                   </div>
-                  <div className="user-menu-body">
-                    <button
-                      type="button"
-                      className="user-menu-logout"
-                      onClick={() => instance.logoutRedirect()}
-                    >
-                      <LogOut size={17} />
-                      تسجيل الخروج
-                    </button>
-                  </div>
+                </div>
+                <div className="user-menu-body">
+                  <button
+                    type="button"
+                    className="user-menu-logout"
+                    onClick={() => instance.logoutRedirect()}
+                  >
+                    <LogOut size={17} />
+                    تسجيل الخروج
+                  </button>
                 </div>
               </div>
             </div>
-
-            {lastUpdate && (
-              <span className="stamp">
-                آخر تحديث للبيانات · <bdi>{lastUpdate}</bdi>
-              </span>
-            )}
           </div>
         </header>
 
         <section className="report">
-          <ReportEmbed key={`${pagePath}-${nonce}`} pageName={sectionId} />
+          <div className="report-card">
+            <ReportEmbed key={`${pagePath}-${nonce}`} pageName={sectionId} />
+          </div>
         </section>
       </main>
 
