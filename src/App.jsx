@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+ import { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Routes, Route, Navigate, NavLink } from "react-router-dom";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "./authConfig";
 import ReportEmbed from "./ReportEmbed";
+import FullscreenDock from "./FullscreenDock";
 import "./App.css";
 
 import {
@@ -428,8 +429,12 @@ function PortalLayout({ pagePath }) {
   const { instance, accounts } = useMsal();
   const [openGroup, setOpenGroup] = useState(() => findGroupTitle(pagePath));
   const [lastUpdate, setLastUpdate] = useState("");
+  const [lastUpdateAt, setLastUpdateAt] = useState(null);
   const [drawer, setDrawer] = useState(false);
-  const [expanded, setExpanded] = useState(false);
+  // يبقى في وضع التكبير عند التنقل بين الصفحات (الصفحة تُعاد تهيئتها مع كل مسار)
+  const [expanded, setExpanded] = useState(
+    () => typeof document !== "undefined" && !!document.fullscreenElement
+  );
   const [nonce, setNonce] = useState(0);
   const [spin, setSpin] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
@@ -445,12 +450,32 @@ function PortalLayout({ pagePath }) {
   useEffect(() => {
     const onEsc = (e) => {
       if (e.key === "Escape") {
-        setExpanded(false);
+        if (!document.fullscreenElement) setExpanded(false);
         setUserOpen(false);
       }
     };
     window.addEventListener("keydown", onEsc);
     return () => window.removeEventListener("keydown", onEsc);
+  }, []);
+
+  // ملء الشاشة الحقيقي للمتصفح (الشاشة 16:9 = نفس مقاس صفحة التقرير، فتملأها بالكامل)
+  const toggleExpand = async () => {
+    try {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch {
+      setExpanded((v) => !v); // احتياط لو المتصفح منع ملء الشاشة
+    }
+  };
+
+  // مزامنة حالة الواجهة مع ملء الشاشة (يشمل الخروج بـ Esc أو F11)
+  useEffect(() => {
+    const onFs = () => setExpanded(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", onFs);
+    return () => document.removeEventListener("fullscreenchange", onFs);
   }, []);
 
   // إغلاق قائمة المستخدم عند الضغط خارجها
@@ -514,6 +539,7 @@ function PortalLayout({ pagePath }) {
         });
 
         setLastUpdate(text);
+        setLastUpdateAt(new Date(lastOk.endTime));
       } catch (e) {
         console.warn("تعذّر جلب وقت التحديث:", e);
       }
@@ -643,7 +669,7 @@ function PortalLayout({ pagePath }) {
             <div className="tools-row">
               <button
                 className="tool"
-                onClick={() => setExpanded((v) => !v)}
+                onClick={toggleExpand}
                 aria-label={expanded ? "إنهاء ملء الشاشة" : "ملء الشاشة"}
               >
                 {expanded ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
@@ -699,6 +725,19 @@ function PortalLayout({ pagePath }) {
           <ReportEmbed key={`${pagePath}-${nonce}`} pageName={sectionId} />
         </section>
       </main>
+
+      {/* شريط التنقل العائم — يظهر في وضع التكبير فقط */}
+      {expanded && (
+        <FullscreenDock
+          groups={allowedMenuGroups}
+          pagePath={pagePath}
+          lastUpdate={lastUpdate}
+          lastUpdateAt={lastUpdateAt}
+          spin={spin}
+          onRefresh={refresh}
+          onExit={toggleExpand}
+        />
+      )}
     </div>
   );
 }
