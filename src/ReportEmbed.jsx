@@ -56,7 +56,7 @@ export default function ReportEmbed({ pageName }) {
           },
           layoutType: models.LayoutType.Custom,
           customLayout: {
-            displayOption: models.DisplayOption.FitToWidth, // يملي العرض دايمًا ويكبر/يصغر مع الشاشة
+            displayOption: models.DisplayOption.FitToPage, // الصفحة كاملة داخل الإطار بدون سكرول
           },
           background: models.BackgroundType.Default, // يُظهر خلفية صفحات التقرير
         },
@@ -105,7 +105,7 @@ export default function ReportEmbed({ pageName }) {
       report
         .updateSettings({
           layoutType: models.LayoutType.Custom,
-          customLayout: { displayOption: models.DisplayOption.FitToWidth },
+          customLayout: { displayOption: models.DisplayOption.FitToPage },
         })
         .catch(() => {});
     });
