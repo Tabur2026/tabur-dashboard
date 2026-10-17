@@ -1,4 +1,4 @@
- @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
 
 :root {
   /* الحبر */
@@ -447,19 +447,17 @@ body {
 }
 .user-menu-logout:hover { background: #FBF1EF; }
 
-/* ---------- التقرير: يملأ المساحة بنسبة 16:9 بدون سكرول وبدون إطار ---------- */
+/* ---------- التقرير: يملأ المساحة بالكامل بدون أي هوامش ---------- */
 .report {
   flex: 1;
   min-height: 0;
-  container-type: size;
-  display: grid;
-  place-items: center;
+  display: block;
   background: var(--canvas);
   overflow: hidden;
 }
 .report-card {
-  width: min(100cqw, calc(100cqh * 16 / 9));
-  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: 100%;
   background: var(--canvas);
 }
 .report-frame {
