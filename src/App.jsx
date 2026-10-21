@@ -48,8 +48,8 @@ const pageTitles = {
     subtitle: "نظرة شاملة على أداء الادارات ومؤشرات إنجاز المهام ",
   },
   "/meeting": {
-    title: "متابعة الاجتماعات الدورية ",
-    subtitle: "نلوحة مؤشرات التزام الفريق الاداري بالية الاجتماعات الدوية ",
+    title: "متابعة الاجتماعات الدورية",
+    subtitle: "لوحة مؤشرات التزام الفريق الإداري بآلية الاجتماعات الدورية",
   },
   "/finance": {
     title: "لوحة معلومات الإدارة المالية",
@@ -353,7 +353,8 @@ const reportSections = {
 
 // ====== معرّفات Power BI ======
 const POWERBI_GROUP_ID = "6bcc7dd2-30e5-4078-a153-d73ee1aee36f";   // معرّف الـ Workspace / Group
-const POWERBI_DATASET_ID = "82c6f719-1c4f-401c-b050-05c61b0373e9";   // معرّف الـ Dataset (tabur_demo)
+const POWERBI_REPORT_ID = "63993055-b8ca-4fa3-b07c-2a359e95abaa";  // نفس التقرير المعروض في ReportEmbed
+const POWERBI_DATASET_ID = "82c6f719-1c4f-401c-b050-05c61b0373e9"; // احتياط فقط — الأساس يُكتشف تلقائياً من التقرير
 // ==================================================
 
 /* الإدارة (المجموعة) التي تحتوي المسار الحالي */
@@ -459,7 +460,7 @@ function PortalLayout({ pagePath }) {
     return () => window.removeEventListener("keydown", onEsc);
   }, []);
 
-  // ملء الشاشة الحقيقي للمتصفح (الشاشة 16:9 = نفس مقاس صفحة التقرير، فتملأها بالكامل)
+  // ملء الشاشة الحقيقي للمتصفح
   const toggleExpand = async () => {
     try {
       if (!document.fullscreenElement) {
@@ -490,8 +491,9 @@ function PortalLayout({ pagePath }) {
     return () => document.removeEventListener("mousedown", onClick);
   }, []);
 
-  // جلب وقت آخر تحديث ناجح من Power BI REST API
-  // يعمل عند فتح الصفحة، وعند الضغط على زر التحديث (nonce)
+  // جلب وقت آخر تحديث للبيانات — نأخذ الأحدث من مصدرين:
+  // 1) سجل التحديث على السيرفر (Refresh now / Scheduled)
+  // 2) جدول 'Last Refresh' داخل البيانات (يشمل التحديث من Desktop ثم النشر)
   useEffect(() => {
     let cancelled = false;
 
@@ -512,24 +514,64 @@ function PortalLayout({ pagePath }) {
         }
         if (cancelled) return;
 
-        // نجلب آخر عدّة عمليات تحديث ونختار آخر عملية ناجحة فعلاً
-        const res = await fetch(
-          `https://api.powerbi.com/v1.0/myorg/groups/${POWERBI_GROUP_ID}/datasets/${POWERBI_DATASET_ID}/refreshes?$top=10`,
-          { headers: { Authorization: `Bearer ${token.accessToken}` } }
-        );
-        if (!res.ok) return;
+        const headers = { Authorization: `Bearer ${token.accessToken}` };
+        const base = `https://api.powerbi.com/v1.0/myorg/groups/${POWERBI_GROUP_ID}`;
 
-        const json = await res.json();
-        const history = json.value || [];
+        // الداتاسيت المرتبطة فعلياً بالتقرير المعروض (بدل الاعتماد على رقم ثابت)
+        let datasetId = POWERBI_DATASET_ID;
+        try {
+          const r = await fetch(`${base}/reports/${POWERBI_REPORT_ID}`, { headers });
+          if (r.ok) {
+            const rep = await r.json();
+            if (rep?.datasetId) datasetId = rep.datasetId;
+          }
+        } catch {
+          /* نكمل بالرقم الاحتياطي */
+        }
 
-        // آخر عملية مكتملة (Completed) ولها وقت انتهاء
-        const lastOk = history.find(
-          (r) => r.status === "Completed" && r.endTime
-        );
-        if (cancelled || !lastOk) return;
+        const candidates = [];
+
+        // (1) آخر تحديث ناجح على السيرفر
+        try {
+          const res = await fetch(`${base}/datasets/${datasetId}/refreshes?$top=10`, { headers });
+          if (res.ok) {
+            const json = await res.json();
+            const lastOk = (json.value || []).find(
+              (r) => r.status === "Completed" && r.endTime
+            );
+            if (lastOk) candidates.push(new Date(lastOk.endTime));
+          }
+        } catch {
+          /* تجاهل */
+        }
+
+        // (2) الوقت المسجّل داخل البيانات نفسها
+        try {
+          const q = await fetch(`${base}/datasets/${datasetId}/executeQueries`, {
+            method: "POST",
+            headers: { ...headers, "Content-Type": "application/json" },
+            body: JSON.stringify({
+              queries: [{ query: "EVALUATE 'Last Refresh'" }],
+              serializerSettings: { includeNulls: true },
+            }),
+          });
+          if (q.ok) {
+            const qj = await q.json();
+            const row = qj?.results?.[0]?.tables?.[0]?.rows?.[0];
+            const val = row ? Object.values(row)[0] : null;
+            const d = val ? new Date(val) : null;
+            if (d && !isNaN(d.getTime())) candidates.push(d);
+          }
+        } catch {
+          /* الجدول غير موجود بعد — نكتفي بسجل السيرفر */
+        }
+
+        if (cancelled || candidates.length === 0) return;
+
+        const latest = new Date(Math.max(...candidates.map((d) => d.getTime())));
 
         // تنسيق بتوقيت السعودية صراحةً (مستقل عن جهاز المستخدم)
-        const text = new Date(lastOk.endTime).toLocaleString("en-GB", {
+        const text = latest.toLocaleString("en-GB", {
           timeZone: "Asia/Riyadh",
           day: "2-digit",
           month: "2-digit",
@@ -540,7 +582,7 @@ function PortalLayout({ pagePath }) {
         });
 
         setLastUpdate(text);
-        setLastUpdateAt(new Date(lastOk.endTime));
+        setLastUpdateAt(latest);
       } catch (e) {
         console.warn("تعذّر جلب وقت التحديث:", e);
       }
@@ -576,8 +618,8 @@ function PortalLayout({ pagePath }) {
     }))
     .filter((group) => group.pages.length > 0);
 
-  const currentPage = pageTitles[pagePath] || pageTitles["/dashboard"];
-  const sectionId = reportSections[pagePath] || reportSections["/dashboard"];
+  const currentPage = pageTitles[pagePath] || pageTitles["/dashboards"];
+  const sectionId = reportSections[pagePath] || reportSections["/dashboards"];
   const activeGroup = findGroupTitle(pagePath);
   const activePage = menuGroups.flatMap((g) => g.pages).find((p) => p.path === pagePath);
   const isStale =
