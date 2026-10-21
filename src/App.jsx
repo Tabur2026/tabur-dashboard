@@ -319,7 +319,7 @@ const userPermissions = {
 const reportSections = {
   "/dashboards": "da2a2b3fbfd80ea2b6ed",
   "/tasks": "903258e7536f55cf9bb0",
-  "/meeting": "aeafd3221d78f0bb37eb",
+  "/meeting": "2ba67ecfc7a4f14797cd",
   "/finance": "c38620a696b6fc62d0f5",
   "/finance-kpis": "744ea543b00dc4c146f7",
   "/finance-cash": "9ad4e769c14a39ca268e",
