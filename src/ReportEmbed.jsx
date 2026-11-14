@@ -10,7 +10,7 @@ const powerbi = new service.Service(
 );
 
 // نفس المعرّفات الموجودة في App.jsx
- const REPORT_ID = "63993055-b8ca-4fa3-b07c-2a359e95abaa";
+ const REPORT_ID = "cacff0d1-9e51-4706-89fa-a059358a7f40";
 const GROUP_ID = "6bcc7dd2-30e5-4078-a153-d73ee1aee36f";
 
 // صلاحية التضمين (delegated) — لازم تكون مضافة على تطبيق Azure
