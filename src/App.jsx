@@ -353,7 +353,7 @@ const reportSections = {
 
 // ====== معرّفات Power BI ======
 const POWERBI_GROUP_ID = "6bcc7dd2-30e5-4078-a153-d73ee1aee36f";   // معرّف الـ Workspace / Group
-const POWERBI_REPORT_ID = "63993055-b8ca-4fa3-b07c-2a359e95abaa";  // نفس التقرير المعروض في ReportEmbed
+const POWERBI_REPORT_ID = "cacff0d1-9e51-4706-89fa-a059358a7f40";  // نفس التقرير المعروض في ReportEmbed
 const POWERBI_DATASET_ID = "82c6f719-1c4f-401c-b050-05c61b0373e9"; // احتياط فقط — الأساس يُكتشف تلقائياً من التقرير
 // ==================================================
 
